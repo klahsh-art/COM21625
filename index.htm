@@ -10,14 +10,14 @@
 <style>
 /* --- Modern Color Palette & Typography --- */
 :root {
-  --font-heading: 'Inter', sans-serif; 
+  --font-heading: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
-  --color-background: #0F172A; 
-  --color-text-light: #E2E8F0; 
-  --color-text-dark: #94A3B8; 
-  --color-accent-primary: #22D3EE; 
-  --color-accent-secondary: #67E8F9; 
-  --color-card-dark: rgba(30, 41, 59, 0.5); 
+  --color-background: #0F172A;
+  --color-text-light: #E2E8F0;
+  --color-text-dark: #94A3B8;
+  --color-accent-primary: #22D3EE;
+  --color-accent-secondary: #67E8F9;
+  --color-card-dark: rgba(30, 41, 59, 0.5);
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 *{box-sizing:border-box}
@@ -61,7 +61,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, #1E3A8A, #06B6D4); 
+    background: linear-gradient(45deg, #1E3A8A, #06B6D4);
     z-index: -1;
 }
 .header .subtitle{ max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
@@ -87,7 +87,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     right: 25px;
     top: 50%;
     transform: translateY(-50%) scale(0.8);
-    background: #1E293B; 
+    background: #1E293B;
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -100,7 +100,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 
 /* Content Styling */
 .gleick-quote {
-    font-family: var(--font-body); 
+    font-family: var(--font-body);
     font-size: clamp(1.5rem, 2.5vw, 2.0rem);
     font-style: italic;
     color: var(--color-text-light);
@@ -119,25 +119,27 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 .timeline-item{
     flex-basis: 220px;
     background: var(--color-card-dark);
-    backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px);
     border-radius:15px;
     padding:20px;
     cursor:pointer;
     box-shadow:0 5px 20px var(--shadow-color);
-    border:1px solid rgba(148, 163, 184, 0.2); 
+    border:1px solid rgba(148, 163, 184, 0.2);
     transition:transform .2s,box-shadow .2s, border-color .2s;
     opacity: 0; transform: translateY(20px);
-    color: var(--color-text-light); 
+    color: var(--color-text-light);
 }
+/* Staggered animation for timeline items */
 .timeline.visible .timeline-item { opacity: 1; transform: translateY(0); }
 .timeline.visible .timeline-item:nth-child(1) { transition-delay: 0.1s; }
 .timeline.visible .timeline-item:nth-child(2) { transition-delay: 0.2s; }
 .timeline.visible .timeline-item:nth-child(3) { transition-delay: 0.3s; }
 .timeline.visible .timeline-item:nth-child(4) { transition-delay: 0.4s; }
+.timeline.visible .timeline-item:nth-child(5) { transition-delay: 0.5s; } /* Added for Babbage */
 
 .timeline-item:hover{
     transform:translateY(-8px) scale(1.05);
-    box-shadow:0 0 25px rgba(34, 211, 238, 0.3); 
+    box-shadow:0 0 25px rgba(34, 211, 238, 0.3);
     border-color: var(--color-accent-primary);
 }
 .timeline-item .icon{
@@ -199,13 +201,13 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 #telegraph-sim #morse-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin-top: 15px; text-align: center; font-size: 1.1em; }
 #telegraph-sim .chart-cell { background: #f4f0e8; color: #111; border-radius: 5px; padding: 5px; border: 1px solid #ccc; }
 #telegraph-sim .chart-symbol { font-weight: bold; color: #4a2; }
-#telegraph-sim h1, #telegraph-sim h2 { font-family: 'Special Elite', monospace; color: #f2d49b; } 
+#telegraph-sim h1, #telegraph-sim h2 { font-family: 'Special Elite', monospace; color: #f2d49b; }
 #telegraph-sim p { font-family: 'Special Elite', monospace; font-size: 1em; line-height: 1.5; color: #f4f0e8;}
 
 /* Modern Quiz Section */
 .quiz-challenge {
     padding:40px 20px;
-    background: rgba(30, 41, 59, 0.7); 
+    background: rgba(30, 41, 59, 0.7);
     border-radius:15px;
     border:1px solid rgba(148, 163, 184, 0.2);
     margin: 0 auto;
@@ -213,7 +215,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 }
 #quiz-title {
     margin-top:0;
-    color: var(--color-accent-primary); 
+    color: var(--color-accent-primary);
 }
 .quiz-question p {
     color: var(--color-text-light);
@@ -226,8 +228,8 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     background-color: rgba(34, 211, 238, 0.1);
     border-color: var(--color-accent-primary);
 }
-.quiz-feedback.correct { color: #34D399; } 
-.quiz-feedback.incorrect { color: #F87171; } 
+.quiz-feedback.correct { color: #34D399; }
+.quiz-feedback.incorrect { color: #F87171; }
 
 </style>
 </head>
@@ -238,7 +240,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 <header class="full-page-section header" id="intro" data-nav="Introduction">
     <div class="container">
       <h1>The Story of Information</h1>
-      <p class="subtitle">An exploration of how dictionaries tamed language, turning the chaos of words into ordered, accessible information.</p>
+      <p class="subtitle">An exploration of how humanity has encoded, manipulated, and transmitted knowledge through the ages.</p>
       <p class="prompt">Scroll to begin the journey and click on any interactive element to learn more.</p>
     </div>
 </header>
@@ -259,22 +261,50 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 <section class="full-page-section" id="timeline" data-nav="Timeline">
     <div class="container">
         <h2>An Interactive Timeline of Order</h2>
-        <p>From simple lists to global databases, the dictionary evolved as a powerful information technology.</p>
+        <p>From simple lists to calculating engines, humanity has always sought to structure and process information.</p>
         <div class="timeline" id="timeline-container">
           <div class="timeline-item" data-id="cawdrey"><div class="icon">📜</div><div class="title">1604 — Cawdrey's <em>Table Alphabeticall</em></div></div>
           <div class="timeline-item" data-id="johnson"><div class="icon">📖</div><div class="title">1755 — Johnson's Dictionary</div></div>
+          <div class="timeline-item" data-id="babbage"><div class="icon">⚙️</div><div class="title">1822 — Babbage's Engine</div></div>
           <div class="timeline-item" data-id="oed"><div class="icon">📚</div><div class="title">1857 — Oxford English Dictionary</div></div>
           <div class="timeline-item" data-id="digital"><div class="icon">📱</div><div class="title">The Digital Revolution</div></div>
         </div>
     </div>
 </section>
 
-<section class="full-page-section" id="psychology-link" data-nav="The Mind">
+<section class="full-page-section" id="quiz" data-nav="Quiz">
+    <div class="quiz-challenge" id="quiz-challenge" aria-labelledby="quiz-title">
+      <h2 id="quiz-title">Chapter 3 Quiz Challenge</h2>
+      <p>Test your knowledge of <em>Two Wordbooks</em> — immediate feedback and short explanations will appear after each choice.</p>
+      
+      <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
+        <p><strong>1.</strong> Who created the first English wordbook, <em>Table Alphabeticall</em> (1604)?</p>
+        <div class="choices" role="group" aria-label="Question 1 choices">
+          <button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755.">A) Samuel Johnson</button>
+          <button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'.">B) Robert Cawdrey</button>
+          <button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED.">C) Oxford scholars</button>
+        </div>
+        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
+      </div>
+      
+      <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
+        <p><strong>2.</strong> Which lexicographer published a landmark English dictionary in 1755?</p>
+        <div class="choices" role="group" aria-label="Question 2 choices">
+          <button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings.">A) Samuel Johnson</button>
+          <button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604.">B) Robert Cawdrey</button>
+          <button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later.">C) James Murray</button>
+        </div>
+        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
+      </div>
+    </div>
+</section>
+
+<section class="full-page-section" id="babbage-engine" data-nav="Babbage">
     <div class="container">
-        <div class="section-icon">🧠</div>
-        <h2>Information & The Mind</h2>
-        <p>Information theory is more than just a concept for computers and telegraphs; it's a fundamental lens through which we can understand our own minds. Cognitive psychology often describes the brain as the ultimate information processor.</p>
-        <p>Just as a telegraph **encodes** a message into dots and dashes, our brains encode sensory experiences into neural signals. These signals are **stored** as memories and can be **retrieved** later. Language itself is a sophisticated code, allowing us to compress and transmit incredibly complex ideas. The journey to understand information is, in many ways, the journey to understand the mechanics of thought itself.</p>
+        <div class="section-icon">⚙️</div>
+        <h2>The First Computer</h2>
+        <p>Long before electronics, Charles Babbage dreamed of a machine to "manufacture" numbers. His **Difference Engine**, conceived in 1822, was a colossal arrangement of gears and wheels designed to automate the production of mathematical tables.</p>
+        <p>Though never completed in his lifetime, Babbage's engine was a monumental intellectual achievement. It represented a bridge from the abstract world of mathematics to the physical world of machinery, treating numbers as a commodity that could be processed and produced. It was the first glimmer of automatic computation.</p>
     </div>
 </section>
 <section class="full-page-section" id="telegraph-sim" data-nav="Telegraph Sim">
@@ -306,50 +336,12 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
       </div>
 </section>
 
-<section class="full-page-section" id="quiz" data-nav="Quiz">
-    <div class="quiz-challenge" id="quiz-challenge" aria-labelledby="quiz-title">
-      <h2 id="quiz-title">Chapter 3 Quiz Challenge</h2>
-      <p>Test your knowledge of <em>Two Wordbooks</em> — immediate feedback and short explanations will appear after each choice.</p>
-    
-      <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
-        <p><strong>1.</strong> Who created the first English wordbook, <em>Table Alphabeticall</em> (1604)?</p>
-        <div class="choices" role="group" aria-label="Question 1 choices">
-          <button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755, not the 1604 wordbook.">A) Samuel Johnson</button>
-          <button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled Table Alphabeticall (1604) to help readers with 'hard words'.">B) Robert Cawdrey</button>
-          <button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved later; Cawdrey is the author of the 1604 wordbook.">C) Oxford scholars</button>
-        </div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-    
-      <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
-        <p><strong>2.</strong> Which lexicographer published a landmark English dictionary in 1755?</p>
-        <div class="choices" role="group" aria-label="Question 2 choices">
-          <button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson published his influential dictionary in 1755, standardizing many spellings.">A) Samuel Johnson</button>
-          <button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604, not the 1755 work.">B) Robert Cawdrey</button>
-          <button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED later; he wasn't the 1755 author.">C) James Murray</button>
-        </div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-    
-      <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
-        <p><strong>3.</strong> The Oxford English Dictionary was built with the help of…</p>
-        <div class="choices" role="group" aria-label="Question 3 choices">
-          <button class="quiz-choice" data-choice="A" data-explain="Correct — the OED relied on thousands of volunteer readers sending in slips of citations and help over many years.">A) Thousands of volunteers</button>
-          <button class="quiz-choice" data-choice="B" data-explain="Not exactly — the OED was a massive collaborative project requiring many contributors, not just a single author.">B) Just one author</button>
-          <button class="quiz-choice" data-choice="C" data-explain="A printing press accident didn't build the OED; it was built through sustained scholarly and public collaboration.">C) A printing press accident</button>
-        </div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-    
-      <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
-        <p><strong>4.</strong> Today, dictionaries are most often accessed through…</p>
-        <div class="choices" role="group" aria-label="Question 4 choices">
-          <button class="quiz-choice" data-choice="A" data-explain="Stone tablets are an ancient medium — not how modern users access dictionary content.">A) Stone tablets</button>
-          <button class="quiz-choice" data-choice="B" data-explain="Correct — mobile apps and websites are the primary platforms for modern dictionary access, making lookup instant and portable.">B) Mobile apps and websites</button>
-          <button class="quiz-choice" data-choice="C" data-explain="Typewriters are outdated and not the main method to access dictionary content today.">C) Typewriters</button>
-        </div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
+<section class="full-page-section" id="psychology-link" data-nav="The Mind">
+    <div class="container">
+        <div class="section-icon">🧠</div>
+        <h2>Information & The Mind</h2>
+        <p>Information theory is more than just a concept for computers and telegraphs; it's a fundamental lens through which we can understand our own minds. Cognitive psychology often describes the brain as the ultimate information processor.</p>
+        <p>Just as a telegraph **encodes** a message into dots and dashes, our brains encode sensory experiences into neural signals. These signals are **stored** as memories and can be **retrieved** later. Language itself is a sophisticated code, allowing us to compress and transmit incredibly complex ideas.</p>
     </div>
 </section>
 
@@ -457,11 +449,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const popupOverlay = document.getElementById('popup-overlay');
     const clickableItems = document.querySelectorAll('.timeline-item');
     
+    // UPDATED popupData with Babbage entry
     const popupData = {
-      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries...</p><p><strong>Information Theory:</strong> A basic tool for **reducing uncertainty**...</p>"},
-      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work by Samuel Johnson...</p><p><strong>Information Theory:</strong> It standardized the 'code' of English, filtering noise...</p>"},
-      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document every word...</p><p><strong>Information Theory:</strong> The OED is like a historical log file for the English language...</p>"},
-      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens...</p><p><strong>Information Theory:</strong> The ultimate shift from **atoms** to **bits**...</p>"}
+      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries, listing about 2,500 'hard words' to help people understand terms from literature and the Bible.</p><p><strong>Information Theory:</strong> This was a basic tool for **reducing uncertainty**. By providing a single, authoritative definition, it made communication clearer.</p>"},
+      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work that became the standard for over 150 years. It used literary quotations to show words in context.</p><p><strong>Information Theory:</strong> Johnson's work wasn't just a list; it was a complex **database**. It standardized the 'code' of English, filtering noise and establishing a common protocol for writers.</p>"},
+      babbage:{title:"1822 — Babbage's Difference Engine",body:"<p><strong>What it was:</strong> A mechanical calculator designed by Charles Babbage to automatically produce error-free mathematical tables.</p><p><strong>Information Theory:</strong> It represented a leap in thinking, treating numbers not just as abstract ideas but as a **commodity** that could be processed and manufactured by a machine, a foundational concept for automatic computation.</p>"},
+      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document the history of every word in English. It was descriptive (how language *is* used) rather than prescriptive (how it *should be* used).</p><p><strong>Information Theory:</strong> The OED is like a historical log file for the English language, tracking words as evolving pieces of information through a massive, crowdsourced **data collection** effort.</p>"},
+      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases accessible on any device.</p><p><strong>Information Theory:</strong> This is the ultimate shift from **atoms** (the physical book) to **bits** (pure information), a central theme in Gleick's work. Information becomes weightless, instant, and infinitely reproducible.</p>"}
     };
 
     function showPopup(id) {

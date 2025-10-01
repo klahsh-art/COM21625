@@ -8,16 +8,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
-/* --- Polished Change: Modern Color Palette & Typography --- */
+/* --- Modern Color Palette & Typography --- */
 :root {
-  --font-heading: 'Inter', sans-serif; /* Modern sans-serif for headings */
+  --font-heading: 'Inter', sans-serif; 
   --font-body: 'Inter', sans-serif;
-  --color-background: #0F172A; /* Dark Slate Blue */
-  --color-text-light: #E2E8F0; /* Light Slate Gray */
-  --color-text-dark: #94A3B8; /* Medium Slate Gray */
-  --color-accent-primary: #22D3EE; /* Bright Cyan */
-  --color-accent-secondary: #67E8F9; /* Lighter Cyan */
-  --color-card-dark: rgba(30, 41, 59, 0.5); /* Semi-transparent darker slate */
+  --color-background: #0F172A; 
+  --color-text-light: #E2E8F0; 
+  --color-text-dark: #94A3B8; 
+  --color-accent-primary: #22D3EE; 
+  --color-accent-secondary: #67E8F9; 
+  --color-card-dark: rgba(30, 41, 59, 0.5); 
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 *{box-sizing:border-box}
@@ -27,7 +27,6 @@ body{
     margin:0;
     color: var(--color-text-light);
     background-color: var(--color-background);
-    /* Polished Change: Replaced textured background with a subtle, modern gradient */
     background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
     overflow-x: hidden;
 }
@@ -54,20 +53,21 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 }
 .full-page-section.visible { opacity: 1; transform: translateY(0); }
 .container{max-width:1100px;width:100%;}
+.section-icon { font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-accent-primary); animation: float 3s ease-in-out infinite; display: inline-block; }
 
-/* --- Polished Change: Modern Header --- */
+/* Header */
 .header{ color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 .header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, #1E3A8A, #06B6D4); /* Modern Blue/Cyan Gradient */
+    background: linear-gradient(45deg, #1E3A8A, #06B6D4); 
     z-index: -1;
 }
 .header .subtitle{ max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
 .header .prompt { margin-top: 2rem; font-style: italic; opacity: 0.8;}
 
-/* --- Polished Change: Modern Dot Navigation --- */
+/* Dot Navigation */
 .dot-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 10; }
 .dot-nav ul { list-style: none; padding: 0; margin: 0; }
 .dot-nav li { margin-bottom: 15px; }
@@ -87,7 +87,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     right: 25px;
     top: 50%;
     transform: translateY(-50%) scale(0.8);
-    background: #1E293B; /* Dark background for tooltip */
+    background: #1E293B; 
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -98,9 +98,9 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 }
 .dot-nav a:hover::after { opacity: 1; visibility: visible; transform: translateY(-50%) scale(1); }
 
-/* --- Polished Change: Modern Content Styling --- */
+/* Content Styling */
 .gleick-quote {
-    font-family: var(--font-body); /* Using body font for a cleaner look */
+    font-family: var(--font-body); 
     font-size: clamp(1.5rem, 2.5vw, 2.0rem);
     font-style: italic;
     color: var(--color-text-light);
@@ -114,20 +114,20 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 .gleick-quote:hover { transform: scale(1.03); }
 .gleick-quote footer { font-style: normal; font-size: 1rem; text-align: right; margin-top: 10px; opacity: 0.8; font-family: var(--font-body);}
 
-/* --- Polished Change: Modern Timeline --- */
+/* Timeline */
 .timeline{display:flex;gap:20px;align-items:stretch;justify-content:center;margin:30px 0;flex-wrap:wrap;}
 .timeline-item{
     flex-basis: 220px;
     background: var(--color-card-dark);
-    backdrop-filter: blur(10px); /* Enhanced glassmorphism */
+    backdrop-filter: blur(10px); 
     border-radius:15px;
     padding:20px;
     cursor:pointer;
     box-shadow:0 5px 20px var(--shadow-color);
-    border:1px solid rgba(148, 163, 184, 0.2); /* Subtle border */
+    border:1px solid rgba(148, 163, 184, 0.2); 
     transition:transform .2s,box-shadow .2s, border-color .2s;
     opacity: 0; transform: translateY(20px);
-    color: var(--color-text-light); /* Ensure text inside is light */
+    color: var(--color-text-light); 
 }
 .timeline.visible .timeline-item { opacity: 1; transform: translateY(0); }
 .timeline.visible .timeline-item:nth-child(1) { transition-delay: 0.1s; }
@@ -137,7 +137,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 
 .timeline-item:hover{
     transform:translateY(-8px) scale(1.05);
-    box-shadow:0 0 25px rgba(34, 211, 238, 0.3); /* Glowing shadow */
+    box-shadow:0 0 25px rgba(34, 211, 238, 0.3); 
     border-color: var(--color-accent-primary);
 }
 .timeline-item .icon{
@@ -153,7 +153,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
   100% { transform: translateY(0px); }
 }
 
-/* --- Polished Change: Modern Popups --- */
+/* Popups */
 .popup-overlay{position:fixed;inset:0;background:rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); z-index:99;animation:fadeIn 0.4s ease}
 .popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:640px;width:90%;background:#1E293B; color: var(--color-text-light); padding:24px;border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,0.5);z-index:100;animation: fadeInPopup 0.4s ease; border: 1px solid rgba(148, 163, 184, 0.3);}
 .hidden{display:none}
@@ -175,8 +175,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 .footer{text-align:center;color:var(--color-text-dark);font-size:0.8rem;padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2);}
 .footer a { color: var(--color-accent-primary); }
 
-/* --- TELEGRAPH SIMULATOR STYLES --- */
-/* Kept original design to preserve its unique, thematic feel within the modern frame */
+/* TELEGRAPH SIMULATOR STYLES */
 #telegraph-sim {
     font-family: 'Special Elite', monospace;
     background-color: #3a2d23;
@@ -184,15 +183,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     color: #f4f0e8;
 }
 #telegraph-sim .container {
-    background-color: #5a4635;
-    border: 2px solid #2e2219;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-    padding: 30px;
-    width: 95%;
-    max-width: 1000px;
-    margin: 20px auto;
-    text-align: center;
+    background-color: #5a4635; border: 2px solid #2e2219; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); padding: 30px; width: 95%; max-width: 1000px; margin: 20px auto; text-align: center;
 }
 #telegraph-sim #paper-tape {
     background-color: #fafafa; border: 2px dashed #444; padding: 20px; min-height: 80px; text-align: left; font-size: 1.6em; font-weight: bold; color: #111; letter-spacing: 4px; word-wrap: break-word; white-space: pre-wrap; margin-bottom: 20px;
@@ -208,13 +199,13 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 #telegraph-sim #morse-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin-top: 15px; text-align: center; font-size: 1.1em; }
 #telegraph-sim .chart-cell { background: #f4f0e8; color: #111; border-radius: 5px; padding: 5px; border: 1px solid #ccc; }
 #telegraph-sim .chart-symbol { font-weight: bold; color: #4a2; }
-#telegraph-sim h1, #telegraph-sim h2 { font-family: 'Special Elite', monospace; color: #f2d49b; } /* Adjusted color for better contrast in its own theme */
+#telegraph-sim h1, #telegraph-sim h2 { font-family: 'Special Elite', monospace; color: #f2d49b; } 
 #telegraph-sim p { font-family: 'Special Elite', monospace; font-size: 1em; line-height: 1.5; color: #f4f0e8;}
 
-/* --- Polished Change: Modern Quiz Section --- */
+/* Modern Quiz Section */
 .quiz-challenge {
     padding:40px 20px;
-    background: rgba(30, 41, 59, 0.7); /* Match timeline card style */
+    background: rgba(30, 41, 59, 0.7); 
     border-radius:15px;
     border:1px solid rgba(148, 163, 184, 0.2);
     margin: 0 auto;
@@ -222,28 +213,21 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 }
 #quiz-title {
     margin-top:0;
-    color: var(--color-accent-primary); /* Use accent for title */
+    color: var(--color-accent-primary); 
 }
 .quiz-question p {
     color: var(--color-text-light);
 }
 .quiz-choice {
-  margin:6px 6px 6px 0;
-  padding:8px 12px;
-  border-radius:8px;
-  border:1px solid rgba(148, 163, 184, 0.3);
-  background:transparent;
-  color: var(--color-text-light);
-  cursor:pointer;
-  transition:transform .12s, box-shadow .12s, background-color .12s;
+  margin:6px 6px 6px 0; padding:8px 12px; border-radius:8px; border:1px solid rgba(148, 163, 184, 0.3); background:transparent; color: var(--color-text-light); cursor:pointer; transition:transform .12s, box-shadow .12s, background-color .12s;
 }
 .quiz-choice:hover {
     transform:translateY(-3px);
     background-color: rgba(34, 211, 238, 0.1);
     border-color: var(--color-accent-primary);
 }
-.quiz-feedback.correct { color: #34D399; } /* Emerald Green */
-.quiz-feedback.incorrect { color: #F87171; } /* Red */
+.quiz-feedback.correct { color: #34D399; } 
+.quiz-feedback.incorrect { color: #F87171; } 
 
 </style>
 </head>
@@ -285,6 +269,14 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     </div>
 </section>
 
+<section class="full-page-section" id="psychology-link" data-nav="The Mind">
+    <div class="container">
+        <div class="section-icon">🧠</div>
+        <h2>Information & The Mind</h2>
+        <p>Information theory is more than just a concept for computers and telegraphs; it's a fundamental lens through which we can understand our own minds. Cognitive psychology often describes the brain as the ultimate information processor.</p>
+        <p>Just as a telegraph **encodes** a message into dots and dashes, our brains encode sensory experiences into neural signals. These signals are **stored** as memories and can be **retrieved** later. Language itself is a sophisticated code, allowing us to compress and transmit incredibly complex ideas. The journey to understand information is, in many ways, the journey to understand the mechanics of thought itself.</p>
+    </div>
+</section>
 <section class="full-page-section" id="telegraph-sim" data-nav="Telegraph Sim">
     <div class="container">
         <h1>Ultimate Telegraph Simulator</h1>
@@ -385,7 +377,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 
 
 <script>
-// Quiz behavior: immediate feedback + short explanation. Allows multiple tries.
+// Quiz behavior
 (function(){
   function handleChoiceClick(e){
     const btn = e.currentTarget;
@@ -401,7 +393,6 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
       feedbackP.textContent = "✅ Correct! " + explanation.replace(/^Correct\s*—\s*/,'').trim();
       feedbackP.classList.remove('incorrect');
       feedbackP.classList.add('correct');
-      // Style update for modern theme
       btn.style.borderColor = '#34D399';
       btn.style.backgroundColor = 'rgba(52, 211, 153, 0.1)';
     } else {
@@ -420,7 +411,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Main Page Logic (Animations, Nav, Popups) ---
+    // Main Page Logic
     const sections = document.querySelectorAll('.full-page-section');
     const dotNavContainer = document.getElementById('dot-nav');
 
@@ -467,10 +458,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickableItems = document.querySelectorAll('.timeline-item');
     
     const popupData = {
-      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries. It was a short book listing about 2,500 'hard words' to help people understand terms from the Bible and other literature.</p><p><strong>Information Theory:</strong> This was a basic tool for **reducing uncertainty**. By providing a single, authoritative definition, it made communication clearer and more efficient.</p>"},
-      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work by Samuel Johnson that became the standard for over 150 years. It used literary quotations to show words in context.</p><p><strong>Information Theory:</strong> Johnson's work wasn't just a list; it was a complex **database**. It standardized the 'code' of English, filtering noise and establishing a common protocol for writers and readers.</p>"},
-      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document the history of every word in the English language. Unlike previous dictionaries, it was descriptive (how language *is* used) rather than prescriptive (how it *should be* used).</p><p><strong>Information Theory:</strong> The OED is like a historical log file for the English language. It treats words as evolving pieces of information, tracking their changes and mutations over time through a massive, crowdsourced **data collection** effort.</p>"},
-      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases accessible on any device.</p><p><strong>Information Theory:</strong> This is the ultimate shift from **atoms** (the physical book) to **bits** (pure information), a central theme in Gleick's work. Information is freed from its physical form, becoming weightless, instant, and infinitely reproducible.</p>"}
+      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries...</p><p><strong>Information Theory:</strong> A basic tool for **reducing uncertainty**...</p>"},
+      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work by Samuel Johnson...</p><p><strong>Information Theory:</strong> It standardized the 'code' of English, filtering noise...</p>"},
+      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document every word...</p><p><strong>Information Theory:</strong> The OED is like a historical log file for the English language...</p>"},
+      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens...</p><p><strong>Information Theory:</strong> The ultimate shift from **atoms** to **bits**...</p>"}
     };
 
     function showPopup(id) {
@@ -489,10 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && !popupContainer.classList.contains('hidden')) hidePopup();
     });
 
-    // --- TELEGRAPH SIMULATOR SCRIPT (Functionality Unchanged) ---
-    const morseCode = {
-      "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----."
-    };
+    // TELEGRAPH SIMULATOR SCRIPT
+    const morseCode = { "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----." };
     const simInput = document.getElementById("message-input");
     const simOutput = document.getElementById("paper-tape");
     const playBtn = document.getElementById("play-sound");

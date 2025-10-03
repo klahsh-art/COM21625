@@ -35,68 +35,72 @@ body{
 h1, h2 { font-family: var(--font-heading); font-weight: 700; }
 h1 { font-size:clamp(3rem, 6vw, 5.5rem); margin-bottom: 1rem; }
 h2 { font-size:clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
+h3 { font-size:clamp(1.8rem, 4vw, 2.5rem); margin: 40px 0 20px 0; color: white; }
 p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark);}
 
-/* --- Full-Page Section Styling --- */
-.full-page-section {
-    min-height: 100vh;
+/* --- Top Navigation Bar --- */
+.main-nav {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+.main-nav a {
+    color: var(--color-text-dark);
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: color 0.2s, background-color 0.2s;
+}
+.main-nav a:hover {
+    color: white;
+    background-color: var(--color-card-dark);
+}
+.main-nav a.active {
+    color: var(--color-accent-primary);
+}
+
+
+/* --- Page Section Styling --- */
+.page-section {
+    min-height: calc(100vh - 50px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-    position: relative;
     text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    display: none; /* Hide all pages by default */
 }
-.full-page-section.visible { opacity: 1; transform: translateY(0); }
+.page-section.active {
+    display: flex;
+    animation: fadeInPage 0.5s ease-in-out;
+}
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 .container{max-width:1100px;width:100%;}
 .section-icon { font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-accent-primary); animation: float 3s ease-in-out infinite; display: inline-block; }
 
-/* Header */
-.header{ color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-.header::before {
+/* Header Page */
+.header-page{ color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.header-page::before {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(45deg, #1E3A8A, #06B6D4);
     z-index: -1;
 }
-.header .subtitle{ max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
-.header .prompt { margin-top: 2rem; font-style: italic; opacity: 0.8;}
-
-/* Dot Navigation */
-.dot-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 10; }
-.dot-nav ul { list-style: none; padding: 0; margin: 0; }
-.dot-nav li { margin-bottom: 15px; }
-.dot-nav a {
-    display: block;
-    width: 12px;
-    height: 12px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    position: relative;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-.dot-nav a.active { background: var(--color-accent-primary); transform: scale(1.4); }
-.dot-nav a::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%) scale(0.8);
-    background: #1E293B;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, transform 0.2s;
-    white-space: nowrap;
-}
-.dot-nav a:hover::after { opacity: 1; visibility: visible; transform: translateY(-50%) scale(1); }
+.header-page .subtitle{ max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
 
 /* Content Styling */
 .gleick-quote {
@@ -126,17 +130,8 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     box-shadow:0 5px 20px var(--shadow-color);
     border:1px solid rgba(148, 163, 184, 0.2);
     transition:transform .2s,box-shadow .2s, border-color .2s;
-    opacity: 0; transform: translateY(20px);
     color: var(--color-text-light);
 }
-/* Staggered animation for timeline items */
-.timeline.visible .timeline-item { opacity: 1; transform: translateY(0); }
-.timeline.visible .timeline-item:nth-child(1) { transition-delay: 0.1s; }
-.timeline.visible .timeline-item:nth-child(2) { transition-delay: 0.2s; }
-.timeline.visible .timeline-item:nth-child(3) { transition-delay: 0.3s; }
-.timeline.visible .timeline-item:nth-child(4) { transition-delay: 0.4s; }
-.timeline.visible .timeline-item:nth-child(5) { transition-delay: 0.5s; } /* Added for Babbage */
-
 .timeline-item:hover{
     transform:translateY(-8px) scale(1.05);
     box-shadow:0 0 25px rgba(34, 211, 238, 0.3);
@@ -148,7 +143,6 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     animation: float 3s ease-in-out infinite;
     display: inline-block;
 }
-
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -166,9 +160,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
 @keyframes fadeInPopup {from{opacity:0;transform:translate(-50%,-46%);}to{opacity:1;transform:translate(-50%,-50%);}}
 
-/* Conclusion Section */
-#conclusion { background: transparent; color: var(--color-text-light); }
-#conclusion h2 { color: white; }
+/* Conclusion Page */
 #conclusion p { color: var(--color-text-dark); }
 #conclusion a { color: var(--color-accent-primary); font-weight: 600; text-decoration: none; }
 #conclusion a:hover { text-decoration: underline; color: var(--color-accent-secondary); }
@@ -177,26 +169,14 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 .footer{text-align:center;color:var(--color-text-dark);font-size:0.8rem;padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2);}
 .footer a { color: var(--color-accent-primary); }
 
-/* TELEGRAPH SIMULATOR STYLES */
-#telegraph-sim {
-    font-family: 'Special Elite', monospace;
-    background-color: #3a2d23;
-    background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
-    color: #f4f0e8;
-}
-#telegraph-sim .container {
-    background-color: #5a4635; border: 2px solid #2e2219; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); padding: 30px; width: 95%; max-width: 1000px; margin: 20px auto; text-align: center;
-}
-#telegraph-sim #paper-tape {
-    background-color: #fafafa; border: 2px dashed #444; padding: 20px; min-height: 80px; text-align: left; font-size: 1.6em; font-weight: bold; color: #111; letter-spacing: 4px; word-wrap: break-word; white-space: pre-wrap; margin-bottom: 20px;
-}
-#telegraph-sim button {
-    font-family: 'Special Elite', monospace; margin: 6px; padding: 10px 18px; font-size: 1em; border-radius: 6px; border: 1px solid #c2a676; background-color: #f2d49b; color: #2e2219; cursor: pointer; transition: 0.2s;
-}
+/* --- MERGED PAGE STYLES --- */
+.babbage-container { padding-bottom: 50px; }
+.telegraph-container-wrapper { width: 100%; font-family: 'Special Elite', monospace; background-color: #3a2d23; background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); color: #f4f0e8; padding: 40px 0;}
+#telegraph-sim .container { background-color: #5a4635; border: 2px solid #2e2219; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); padding: 30px; width: 95%; max-width: 1000px; margin: 20px auto; text-align: center; }
+#telegraph-sim #paper-tape { background-color: #fafafa; border: 2px dashed #444; padding: 20px; min-height: 80px; text-align: left; font-size: 1.6em; font-weight: bold; color: #111; letter-spacing: 4px; word-wrap: break-word; white-space: pre-wrap; margin-bottom: 20px; }
+#telegraph-sim button { font-family: 'Special Elite', monospace; margin: 6px; padding: 10px 18px; font-size: 1em; border-radius: 6px; border: 1px solid #c2a676; background-color: #f2d49b; color: #2e2219; cursor: pointer; transition: 0.2s; }
 #telegraph-sim button:hover { background-color: #e6c580; }
-#telegraph-sim textarea, #telegraph-sim input {
-    font-family: 'Special Elite', monospace; width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #8b6f52; border-radius: 5px; font-size: 1.2em;
-}
+#telegraph-sim textarea, #telegraph-sim input { font-family: 'Special Elite', monospace; width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #8b6f52; border-radius: 5px; font-size: 1.2em; }
 #telegraph-sim textarea { height: 100px; resize: none; background: #f4f0e8; color: #333; }
 #telegraph-sim #morse-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin-top: 15px; text-align: center; font-size: 1.1em; }
 #telegraph-sim .chart-cell { background: #f4f0e8; color: #111; border-radius: 5px; padding: 5px; border: 1px solid #ccc; }
@@ -205,29 +185,11 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 #telegraph-sim p { font-family: 'Special Elite', monospace; font-size: 1em; line-height: 1.5; color: #f4f0e8;}
 
 /* Modern Quiz Section */
-.quiz-challenge {
-    padding:40px 20px;
-    background: rgba(30, 41, 59, 0.7);
-    border-radius:15px;
-    border:1px solid rgba(148, 163, 184, 0.2);
-    margin: 0 auto;
-    max-width: 1100px;
-}
-#quiz-title {
-    margin-top:0;
-    color: var(--color-accent-primary);
-}
-.quiz-question p {
-    color: var(--color-text-light);
-}
-.quiz-choice {
-  margin:6px 6px 6px 0; padding:8px 12px; border-radius:8px; border:1px solid rgba(148, 163, 184, 0.3); background:transparent; color: var(--color-text-light); cursor:pointer; transition:transform .12s, box-shadow .12s, background-color .12s;
-}
-.quiz-choice:hover {
-    transform:translateY(-3px);
-    background-color: rgba(34, 211, 238, 0.1);
-    border-color: var(--color-accent-primary);
-}
+.quiz-challenge { padding:40px 20px; background: rgba(30, 41, 59, 0.7); border-radius:15px; border:1px solid rgba(148, 163, 184, 0.2); margin: 0 auto; max-width: 1100px; }
+#quiz-title { margin-top:0; color: var(--color-accent-primary); }
+.quiz-question p { color: var(--color-text-light); }
+.quiz-choice { margin:6px 6px 6px 0; padding:8px 12px; border-radius:8px; border:1px solid rgba(148, 163, 184, 0.3); background:transparent; color: var(--color-text-light); cursor:pointer; transition:transform .12s, box-shadow .12s, background-color .12s; }
+.quiz-choice:hover { transform:translateY(-3px); background-color: rgba(34, 211, 238, 0.1); border-color: var(--color-accent-primary); }
 .quiz-feedback.correct { color: #34D399; }
 .quiz-feedback.incorrect { color: #F87171; }
 
@@ -235,32 +197,26 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 </head>
 <body>
 
-<nav class="dot-nav" id="dot-nav"></nav>
-
-<header class="full-page-section header" id="intro" data-nav="Introduction">
-    <div class="container">
-      <h1>The Story of Information</h1>
-      <p class="subtitle">An exploration of how humanity has encoded, manipulated, and transmitted knowledge through the ages.</p>
-      <p class="prompt">Scroll to begin the journey and click on any interactive element to learn more.</p>
-    </div>
-</header>
+<nav class="main-nav" id="main-nav">
+    <a href="#intro">Introduction</a>
+    <a href="#chapter-3">Timeline & Quiz (Ch. 3)</a>
+    <a href="#machines">Machines (Ch. 4-5)</a>
+    <a href="#psychology-link">The Mind</a>
+    <a href="#conclusion">Conclusion</a>
+</nav>
 
 <main>
 
-<section class="full-page-section" id="gleick-intro" data-nav="The Code">
+<section class="page-section header-page" id="intro">
     <div class="container">
-        <h2>The Dawn of Code</h2>
-        <blockquote class="gleick-quote">
-            <p>"When information is cheap, attention becomes expensive."</p>
-            <footer>— James Gleick, <em>The Information</em></footer>
-        </blockquote>
-        <p>Before dictionaries, language was a wild, unstandardized flood. The history of communication is a history of creating **codes** and **systems** to manage this flood. The alphabet itself is a code. The dictionary is the codebook.</p>
+      <h1>The Story of Information</h1>
+      <p class="subtitle">An exploration of how humanity has encoded, manipulated, and transmitted knowledge through the ages.</p>
     </div>
 </section>
 
-<section class="full-page-section" id="timeline" data-nav="Timeline">
+<section class="page-section" id="chapter-3">
     <div class="container">
-        <h2>An Interactive Timeline of Order</h2>
+        <h3>An Interactive Timeline of Order</h3>
         <p>From simple lists to calculating engines, humanity has always sought to structure and process information.</p>
         <div class="timeline" id="timeline-container">
           <div class="timeline-item" data-id="cawdrey"><div class="icon">📜</div><div class="title">1604 — Cawdrey's <em>Table Alphabeticall</em></div></div>
@@ -270,73 +226,59 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
           <div class="timeline-item" data-id="digital"><div class="icon">📱</div><div class="title">The Digital Revolution</div></div>
         </div>
     </div>
-</section>
-
-<section class="full-page-section" id="quiz" data-nav="Quiz">
-    <div class="quiz-challenge" id="quiz-challenge" aria-labelledby="quiz-title">
-      <h2 id="quiz-title">Chapter 3 Quiz Challenge</h2>
+    <div class="quiz-challenge" id="quiz-challenge" aria-labelledby="quiz-title" style="margin-top: 50px;">
+      <h3 id="quiz-title">Chapter 3 Quiz Challenge</h3>
       <p>Test your knowledge of <em>Two Wordbooks</em> — immediate feedback and short explanations will appear after each choice.</p>
       
       <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
         <p><strong>1.</strong> Who created the first English wordbook, <em>Table Alphabeticall</em> (1604)?</p>
-        <div class="choices" role="group" aria-label="Question 1 choices">
-          <button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755.">A) Samuel Johnson</button>
-          <button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'.">B) Robert Cawdrey</button>
-          <button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED.">C) Oxford scholars</button>
-        </div>
+        <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED.">C) Oxford scholars</button></div>
         <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
       </div>
       
       <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
         <p><strong>2.</strong> Which lexicographer published a landmark English dictionary in 1755?</p>
-        <div class="choices" role="group" aria-label="Question 2 choices">
-          <button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings.">A) Samuel Johnson</button>
-          <button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604.">B) Robert Cawdrey</button>
-          <button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later.">C) James Murray</button>
-        </div>
+        <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later.">C) James Murray</button></div>
         <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
       </div>
     </div>
 </section>
 
-<section class="full-page-section" id="babbage-engine" data-nav="Babbage">
-    <div class="container">
+<section class="page-section" id="machines">
+    <div class="container babbage-container">
         <div class="section-icon">⚙️</div>
-        <h2>The First Computer</h2>
+        <h2>The First Computer (Ch. 4)</h2>
         <p>Long before electronics, Charles Babbage dreamed of a machine to "manufacture" numbers. His **Difference Engine**, conceived in 1822, was a colossal arrangement of gears and wheels designed to automate the production of mathematical tables.</p>
-        <p>Though never completed in his lifetime, Babbage's engine was a monumental intellectual achievement. It represented a bridge from the abstract world of mathematics to the physical world of machinery, treating numbers as a commodity that could be processed and produced. It was the first glimmer of automatic computation.</p>
+        <p>Though never completed in his lifetime, Babbage's engine represented a bridge from the abstract world of mathematics to the physical world of machinery, treating numbers as a commodity that could be processed and produced. It was the first glimmer of automatic computation.</p>
+    </div>
+    <div class="telegraph-container-wrapper" id="telegraph-sim">
+        <div class="container">
+            <h1>Ultimate Telegraph Simulator (Ch. 5)</h1>
+            <p>Type a message to encode it, play Morse sounds, or try decoding challenges!</p>
+            <h2>✍ Encode a Message</h2>
+            <textarea id="message-input" placeholder="Type here..."></textarea>
+            <div id="paper-tape"></div>
+            <button id="play-sound">▶ Play Morse Sound</button>
+            <button id="clear">🧹 Clear</button>
+            <h2>🔎 Decode Morse Code</h2>
+            <input type="text" id="decode-input" placeholder="Type Morse here (.... . .-.. .-.. ---)">
+            <button id="decode-btn">Decode</button>
+            <p id="decode-output"></p>
+            <h2>🎮 Game Mode</h2>
+            <button id="new-game">Generate Random Message</button>
+            <p id="morse-challenge"></p>
+            <input type="text" id="game-answer" placeholder="Your translation here">
+            <button id="check-answer">Check Answer</button>
+            <p id="game-feedback"></p>
+            <h2>📖 Learn Morse Code</h2>
+            <p>Quick reference chart for letters & numbers:</p>
+            <div id="morse-chart"></div>
+        </div>
     </div>
 </section>
-<section class="full-page-section" id="telegraph-sim" data-nav="Telegraph Sim">
-    <div class="container">
-        <h1>Ultimate Telegraph Simulator</h1>
-        <p>Type a message to encode it, play Morse sounds, or try decoding challenges!</p>
-    
-        <h2>✍ Encode a Message</h2>
-        <textarea id="message-input" placeholder="Type here..."></textarea>
-        <div id="paper-tape"></div>
-        <button id="play-sound">▶ Play Morse Sound</button>
-        <button id="clear">🧹 Clear</button>
-    
-        <h2>🔎 Decode Morse Code</h2>
-        <input type="text" id="decode-input" placeholder="Type Morse here (.... . .-.. .-.. ---)">
-        <button id="decode-btn">Decode</button>
-        <p id="decode-output"></p>
-    
-        <h2>🎮 Game Mode</h2>
-        <button id="new-game">Generate Random Message</button>
-        <p id="morse-challenge"></p>
-        <input type="text" id="game-answer" placeholder="Your translation here">
-        <button id="check-answer">Check Answer</button>
-        <p id="game-feedback"></p>
-    
-        <h2>📖 Learn Morse Code</h2>
-        <p>Quick reference chart for letters & numbers:</p>
-        <div id="morse-chart"></div>
-      </div>
-</section>
 
-<section class="full-page-section" id="psychology-link" data-nav="The Mind">
+
+<section class="page-section" id="psychology-link">
     <div class="container">
         <div class="section-icon">🧠</div>
         <h2>Information & The Mind</h2>
@@ -345,7 +287,7 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
     </div>
 </section>
 
-<section class="full-page-section" id="conclusion" data-nav="Conclusion">
+<section class="page-section" id="conclusion">
     <div class="container">
         <h2>The Unending Story</h2>
         <p>From clay tablets to cloud servers, the quest to structure information is a fundamental part of human history. The dictionary is more than a book; it's a testament to our enduring need to create order from chaos, a story that continues to evolve with every new technology and every new word.</p>
@@ -369,110 +311,73 @@ p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; ma
 
 
 <script>
-// Quiz behavior
-(function(){
-  function handleChoiceClick(e){
-    const btn = e.currentTarget;
-    const qdiv = btn.closest('.quiz-question');
-    if(!qdiv) return;
-    const correct = qdiv.getAttribute('data-correct');
-    const chosen = btn.getAttribute('data-choice');
-    const explanation = btn.getAttribute('data-explain') || '';
-    const feedbackP = qdiv.querySelector('.quiz-feedback');
-    if(!feedbackP) return;
-
-    if(chosen === correct){
-      feedbackP.textContent = "✅ Correct! " + explanation.replace(/^Correct\s*—\s*/,'').trim();
-      feedbackP.classList.remove('incorrect');
-      feedbackP.classList.add('correct');
-      btn.style.borderColor = '#34D399';
-      btn.style.backgroundColor = 'rgba(52, 211, 153, 0.1)';
-    } else {
-      feedbackP.textContent = "❌ Not quite. " + explanation;
-      feedbackP.classList.remove('correct');
-      feedbackP.classList.add('incorrect');
-      btn.style.transition = 'transform .08s';
-      btn.style.transform = 'translateY(2px)';
-      setTimeout(()=>{ btn.style.transform = ''; }, 150);
-    }
-  }
-
-  document.querySelectorAll('.quiz-choice').forEach(b=>{
-    b.addEventListener('click', handleChoiceClick);
-  });
-})();
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Main Page Logic
-    const sections = document.querySelectorAll('.full-page-section');
-    const dotNavContainer = document.getElementById('dot-nav');
-
-    const sectionObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                if (entry.target.id === 'timeline') {
-                    entry.target.querySelector('.timeline').classList.add('visible');
-                }
-            }
+    // --- Single Page Application (SPA) Router ---
+    const pages = document.querySelectorAll('.page-section');
+    const navLinks = document.querySelectorAll('.main-nav a');
+    function showPage(hash) {
+        const pageId = hash ? hash.substring(1) : 'intro';
+        const defaultPage = document.getElementById('intro');
+        const targetPage = document.getElementById(pageId) || defaultPage;
+        pages.forEach(page => page.classList.remove('active'));
+        targetPage.classList.add('active');
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${pageId}`);
         });
-    }, { threshold: 0.2 });
-    sections.forEach(section => sectionObserver.observe(section));
+    }
+    showPage(window.location.hash);
+    window.addEventListener('hashchange', () => showPage(window.location.hash));
 
-    const navUl = document.createElement('ul');
-    sections.forEach(section => {
-        if (section.dataset.nav) {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = `#${section.id}`;
-            link.dataset.tooltip = section.dataset.nav;
-            listItem.appendChild(link);
-            navUl.appendChild(listItem);
+    // --- Original Scripts (Quiz, Popups, Simulator) ---
+
+    // Quiz behavior
+    (function(){
+      function handleChoiceClick(e){
+        const btn = e.currentTarget;
+        const qdiv = btn.closest('.quiz-question');
+        if(!qdiv) return;
+        const correct = qdiv.getAttribute('data-correct');
+        const chosen = btn.getAttribute('data-choice');
+        const explanation = btn.getAttribute('data-explain') || '';
+        const feedbackP = qdiv.querySelector('.quiz-feedback');
+        if(!feedbackP) return;
+        if(chosen === correct){
+          feedbackP.textContent = "✅ Correct! " + explanation.replace(/^Correct\s*—\s*/,'').trim();
+          feedbackP.classList.add('correct');
+          btn.style.borderColor = '#34D399';
+          btn.style.backgroundColor = 'rgba(52, 211, 153, 0.1)';
+        } else {
+          feedbackP.textContent = "❌ Not quite. " + explanation;
+          feedbackP.classList.add('incorrect');
         }
-    });
-    dotNavContainer.appendChild(navUl);
-    
-    const navObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const activeLink = dotNavContainer.querySelector(`a[href="#${entry.target.id}"]`);
-                dotNavContainer.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-                if (activeLink) activeLink.classList.add('active');
-            }
-        });
-    }, { rootMargin: '-50% 0px -50% 0px' });
-    sections.forEach(section => navObserver.observe(section));
+      }
+      document.querySelectorAll('.quiz-choice').forEach(b => b.addEventListener('click', handleChoiceClick));
+    })();
 
+    // Popup Logic
     const popupContainer = document.getElementById('popup-container');
     const popupContent = document.getElementById('popupContent');
     const closePopup = document.getElementById('closePopup');
     const popupOverlay = document.getElementById('popup-overlay');
     const clickableItems = document.querySelectorAll('.timeline-item');
-    
-    // UPDATED popupData with Babbage entry
     const popupData = {
-      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries, listing about 2,500 'hard words' to help people understand terms from literature and the Bible.</p><p><strong>Information Theory:</strong> This was a basic tool for **reducing uncertainty**. By providing a single, authoritative definition, it made communication clearer.</p>"},
-      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work that became the standard for over 150 years. It used literary quotations to show words in context.</p><p><strong>Information Theory:</strong> Johnson's work wasn't just a list; it was a complex **database**. It standardized the 'code' of English, filtering noise and establishing a common protocol for writers.</p>"},
-      babbage:{title:"1822 — Babbage's Difference Engine",body:"<p><strong>What it was:</strong> A mechanical calculator designed by Charles Babbage to automatically produce error-free mathematical tables.</p><p><strong>Information Theory:</strong> It represented a leap in thinking, treating numbers not just as abstract ideas but as a **commodity** that could be processed and manufactured by a machine, a foundational concept for automatic computation.</p>"},
-      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document the history of every word in English. It was descriptive (how language *is* used) rather than prescriptive (how it *should be* used).</p><p><strong>Information Theory:</strong> The OED is like a historical log file for the English language, tracking words as evolving pieces of information through a massive, crowdsourced **data collection** effort.</p>"},
-      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases accessible on any device.</p><p><strong>Information Theory:</strong> This is the ultimate shift from **atoms** (the physical book) to **bits** (pure information), a central theme in Gleick's work. Information becomes weightless, instant, and infinitely reproducible.</p>"}
+      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries... to help people understand 'hard words'.</p><p><strong>Information Theory:</strong> A basic tool for **reducing uncertainty**.</p>"},
+      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work that standardized English for over 150 years.</p><p><strong>Information Theory:</strong> It was a complex **database** that standardized the 'code' of English, filtering noise.</p>"},
+      babbage:{title:"1822 — Babbage's Difference Engine",body:"<p><strong>What it was:</strong> A mechanical calculator designed to automatically produce error-free mathematical tables.</p><p><strong>Information Theory:</strong> It treated numbers as a **commodity** that could be processed and manufactured by a machine, a foundational concept for automatic computation.</p>"},
+      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document the history of every word in English.</p><p><strong>Information Theory:</strong> A historical log file for the English language, tracking words as evolving information through a massive, crowdsourced **data collection** effort.</p>"},
+      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases.</p><p><strong>Information Theory:</strong> The ultimate shift from **atoms** (the physical book) to **bits** (pure information), making information weightless and instant.</p>"}
     };
-
     function showPopup(id) {
         const data = popupData[id];
         if (!data) return;
         popupContent.innerHTML = `<h3>${data.title}</h3>${data.body}`;
         popupContainer.classList.remove('hidden');
     }
-
     function hidePopup() { popupContainer.classList.add('hidden'); }
-
     clickableItems.forEach(item => item.addEventListener('click', () => showPopup(item.dataset.id)));
     closePopup.addEventListener('click', hidePopup);
     popupOverlay.addEventListener('click', hidePopup);
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !popupContainer.classList.contains('hidden')) hidePopup();
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !popupContainer.classList.contains('hidden')) hidePopup(); });
 
     // TELEGRAPH SIMULATOR SCRIPT
     const morseCode = { "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----." };
@@ -482,8 +387,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearBtn = document.getElementById("clear");
     function encodeToMorse(text) { return text.toUpperCase().split("").map(ch => morseCode[ch] || (ch === " " ? "/" : ch)).join(" "); }
     function decodeMorse(morse) { const reverse = Object.entries(morseCode).reduce((acc,[k,v]) => (acc[v]=k,acc),{}); return morse.trim().split(" ").map(symbol => (symbol === "/" ? " " : reverse[symbol] || "?")).join(""); }
-    simInput.addEventListener("input", () => { simOutput.textContent = encodeToMorse(simInput.value); });
-    playBtn.addEventListener("click", () => {
+    if(simInput && simOutput) simInput.addEventListener("input", () => { simOutput.textContent = encodeToMorse(simInput.value); });
+    if(playBtn && simOutput) playBtn.addEventListener("click", () => {
       const morse = simOutput.textContent.trim();
       if (!morse) return;
       let i = 0;
@@ -501,13 +406,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       playNext();
     });
-    clearBtn.addEventListener("click", () => { simInput.value = ""; simOutput.textContent = ""; });
-    document.getElementById("decode-btn").addEventListener("click", () => { document.getElementById("decode-output").textContent = decodeMorse(document.getElementById("decode-input").value); });
+    if(clearBtn && simInput && simOutput) clearBtn.addEventListener("click", () => { simInput.value = ""; simOutput.textContent = ""; });
+    const decodeBtn = document.getElementById("decode-btn");
+    if(decodeBtn) decodeBtn.addEventListener("click", () => { document.getElementById("decode-output").textContent = decodeMorse(document.getElementById("decode-input").value); });
     const words = ["HELLO", "WORLD", "MORSE", "CODE", "TELEGRAPH", "MESSAGE"];
-    document.getElementById("new-game").addEventListener("click", () => { const randomWord = words[Math.floor(Math.random() * words.length)]; const challengeEl = document.getElementById("morse-challenge"); challengeEl.textContent = encodeToMorse(randomWord); challengeEl.dataset.answer = randomWord; document.getElementById("game-answer").value = ""; document.getElementById("game-feedback").textContent = ""; });
-    document.getElementById("check-answer").addEventListener("click", () => { const challenge = document.getElementById("morse-challenge"); const feedback = document.getElementById("game-feedback"); if (!challenge.dataset.answer) { feedback.textContent = "Start a game first!"; return; } if (document.getElementById("game-answer").value.toUpperCase().trim() === challenge.dataset.answer) { feedback.textContent = "✅ Correct! The word was " + challenge.dataset.answer; feedback.style.color = "#34D399"; } else { feedback.textContent = "❌ Try again!"; feedback.style.color = "#F87171"; } });
+    const newGameBtn = document.getElementById("new-game");
+    if(newGameBtn) newGameBtn.addEventListener("click", () => { const randomWord = words[Math.floor(Math.random() * words.length)]; const challengeEl = document.getElementById("morse-challenge"); challengeEl.textContent = encodeToMorse(randomWord); challengeEl.dataset.answer = randomWord; document.getElementById("game-answer").value = ""; document.getElementById("game-feedback").textContent = ""; });
+    const checkAnswerBtn = document.getElementById("check-answer");
+    if(checkAnswerBtn) checkAnswerBtn.addEventListener("click", () => { const challenge = document.getElementById("morse-challenge"); const feedback = document.getElementById("game-feedback"); if (!challenge.dataset.answer) { feedback.textContent = "Start a game first!"; return; } if (document.getElementById("game-answer").value.toUpperCase().trim() === challenge.dataset.answer) { feedback.textContent = "✅ Correct! The word was " + challenge.dataset.answer; feedback.style.color = "#34D399"; } else { feedback.textContent = "❌ Try again!"; feedback.style.color = "#F87171"; } });
     const chart = document.getElementById("morse-chart");
-    Object.entries(morseCode).forEach(([letter, code]) => { const cell = document.createElement("div"); cell.className = "chart-cell"; cell.innerHTML = `<div><strong>${letter}</strong></div><div class="chart-symbol">${code}</div>`; chart.appendChild(cell); });
+    if(chart) Object.entries(morseCode).forEach(([letter, code]) => { const cell = document.createElement("div"); cell.className = "chart-cell"; cell.innerHTML = `<div><strong>${letter}</strong></div><div class="chart-symbol">${code}</div>`; chart.appendChild(cell); });
 });
 </script>
 

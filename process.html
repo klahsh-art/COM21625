@@ -38,25 +38,10 @@
         .phase{background:rgba(30, 41, 59, 0.3);border:1px solid rgba(148, 163, 184, 0.1);padding:18px;border-radius:12px;margin-bottom:18px}
         .prompt{background:rgba(34,211,238,0.04);border-left:3px solid var(--color-accent-primary);padding:12px;border-radius:8px; margin-bottom: 8px;}
         .comment{color:var(--color-text-dark);font-style:italic;margin-top:0px}
-        
-        /* New Dropdown Styles */
-        details {
-            background: rgba(30, 41, 59, 0.3);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            border-radius: 12px;
-            margin-bottom: 16px;
-            transition: background-color 0.2s;
-        }
+        details { background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(148, 163, 184, 0.1); border-radius: 12px; margin-bottom: 16px; transition: background-color 0.2s; }
         details[open] { background-color: rgba(30, 41, 59, 0.5); }
-        summary {
-            padding: 16px;
-            cursor: pointer;
-            font-weight: 600;
-            color: white;
-            list-style-type: '▸ ';
-        }
+        summary { padding: 16px; cursor: pointer; font-weight: 600; color: white; list-style-type: '▸ '; }
         details[open] > summary { list-style-type: '▾ '; }
-        
         .code-block { position: relative; margin-top: 16px; padding: 0 16px 16px 16px; }
         pre{background: #0a101f;color:#E2E8F0;padding:14px;border-radius:8px;overflow:auto;border:1px solid rgba(148,163,184,0.18);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;font-size:0.86rem}
         .copy-btn { position: absolute; top: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.1); color: var(--color-text-light); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 5px; padding: 4px 8px; cursor: pointer; font-size: 0.8em; transition: background-color 0.2s, color 0.2s; }
@@ -135,11 +120,10 @@
 
             <details>
                 <summary><h3>Morse Code Simulator (JavaScript)</h3></summary>
-                <p class="comment">This standalone JavaScript block contains all the logic for the Telegraph Simulator. It includes the Morse code dictionary, functions for encoding/decoding, a game mode, and the Web Audio API logic for playing sounds. You can drop this into any HTML file that has elements with the corresponding IDs.</p>
+                <p class="comment">This standalone JavaScript block contains all the logic for the Telegraph Simulator. It can be dropped into any HTML file that has elements with the corresponding IDs.</p>
                 <div class="code-block">
                     <button class="copy-btn">Copy Code</button>
                     <pre><code>
-// Full Morse Code Simulator Script
 document.addEventListener('DOMContentLoaded', () => {
     const morseCode = { "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----." };
     const simInput = document.getElementById("message-input");
@@ -197,30 +181,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     <pre><code>&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
-    &lt;meta charset="utf-8" /&gt;
-    &lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-    &lt;title&gt;The Story of Information | Introduction&lt;/title&gt;
-    &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-    &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-    &lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
-    &lt;style&gt;
-        :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
-        .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; left: 0; top: 0; }
-        .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-        .sidebar nav { display: flex; flex-direction: column; }
-        .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-        .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-        .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-        .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; }
-        main { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .header-page { width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); position: relative; }
-        .header-page::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, #1E3A8A, #06B6D4); z-index: -1; }
-        .header-page .subtitle { max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
-        h1 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); margin-bottom: 1rem; }
-        .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-    &lt;/style&gt;
+&lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+&lt;title&gt;The Story of Information | Introduction&lt;/title&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
+    :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
+    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; left: 0; top: 0; }
+    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+    .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .header-page { width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); position: relative; }
+    .header-page::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, #1E3A8A, #06B6D4); z-index: -1; }
+    .header-page .subtitle { max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
+    h1 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); margin-bottom: 1rem; }
+    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
+&lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
@@ -257,28 +241,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 <summary><h3>Full Page Code: `chapter3.html`</h3></summary>
                 <div class="code-block">
                     <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!-- <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Story of Information | Timeline & Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-<style>
+                    <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+&lt;title&gt;The Story of Information | Timeline & Quiz&lt;/title&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
     :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); }
-    .main-nav { background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; width: 100%; z-index: 1000; padding: 10px 0; text-align: center; border-bottom: 1px solid rgba(148, 163, 184, 0.2); }
-    .main-nav a { color: var(--color-text-dark); text-decoration: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .main-nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .main-nav a.active { color: var(--color-accent-primary); }
-    main { padding: 40px 20px; text-align: center; }
+    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
+    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
+    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+    .main-content { margin-left: 240px; width: calc(100% - 240px); padding: 40px 20px; text-align: center; }
     .container { max-width: 1100px; width: 100%; margin: 0 auto 50px auto; }
     h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
-    h3 { font-size:clamp(1.8rem, 4vw, 2.5rem); margin: 40px 0 20px 0; color: white; }
     p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
     .timeline{display:flex;gap:20px;align-items:stretch;justify-content:center;margin:30px 0;flex-wrap:wrap;}
     .timeline-item{ flex-basis: 220px; background: var(--color-card-dark); backdrop-filter: blur(10px); border-radius:15px; padding:20px; cursor:pointer; box-shadow:0 5px 20px var(--shadow-color); border:1px solid rgba(148, 163, 184, 0.2); transition:transform .2s,box-shadow .2s, border-color .2s; color: var(--color-text-light); }
@@ -291,69 +276,70 @@ document.addEventListener('DOMContentLoaded', () => {
     .close:hover{ color: white; }
     .popup-content h3{font-family: var(--font-heading); margin-top:0; font-size: 1.75rem; color: white;}
     .popup-content p{color:var(--color-text-dark);} @keyframes fadeIn {from{opacity:0;} to{opacity:1;}} @keyframes fadeInPopup {from{opacity:0;transform:translate(-50%,-46%);}to{opacity:1;transform:translate(-50%,-50%);}}
-    .quiz-challenge { padding:40px 20px; background: rgba(30, 41, 59, 0.7); border-radius:15px; border:1px solid rgba(148, 163, 184, 0.2); margin: 0 auto; max-width: 1100px; }
+    .quiz-challenge { padding:40px 20px; background: rgba(30, 41, 59, 0.7); border-radius:15px; border:1px solid rgba(148, 163, 184, 0.2); margin: 50px auto 0 auto; max-width: 1100px; }
     .quiz-question p { color: var(--color-text-light); }
     .quiz-choice { margin:6px 6px 6px 0; padding:8px 12px; border-radius:8px; border:1px solid rgba(148, 163, 184, 0.3); background:transparent; color: var(--color-text-light); cursor:pointer; transition:transform .12s, box-shadow .12s, background-color .12s; }
     .quiz-choice:hover { transform:translateY(-3px); background-color: rgba(34, 211, 238, 0.1); border-color: var(--color-accent-primary); }
     .quiz-feedback.correct { color: #34D399; } .quiz-feedback.incorrect { color: #F87171; }
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-    .footer a { color: var(--color-accent-primary); }
-</style>
-</head>
-<body>
+    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); margin-top: 50px; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-<nav class="main-nav">
-    <a href="index.html">Introduction</a>
-    <a href="chapter3.html" class="active">Timeline & Quiz (Ch. 3)</a>
-    <a href="machines.html">Machines (Ch. 4-5)</a>
-    <a href="mind.html">The Mind</a>
-    <a href="conclusion.html">Conclusion</a>
-    <a href="process.html">Our Process</a>
-</nav>
+&lt;aside class="sidebar"&gt;
+    &lt;h2&gt;The Story of Information&lt;/h2&gt;
+    &lt;nav&gt;
+        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
+        &lt;a href="chapter3.html" class="active"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
+        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
+        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
+        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;
 
-<main>
-    <div class="container">
-        <h2>An Interactive Timeline of Order</h2>
-        <p>From simple lists to calculating engines, humanity has always sought to structure and process information.</p>
-        <div class="timeline" id="timeline-container">
-          <div class="timeline-item" data-id="cawdrey"><div class="icon">📜</div><div class="title">1604 — Cawdrey's <em>Table Alphabeticall</em></div></div>
-          <div class="timeline-item" data-id="johnson"><div class="icon">📖</div><div class="title">1755 — Johnson's Dictionary</div></div>
-          <div class="timeline-item" data-id="babbage"><div class="icon">⚙️</div><div class="title">1822 — Babbage's Engine</div></div>
-          <div class="timeline-item" data-id="oed"><div class="icon">📚</div><div class="title">1857 — Oxford English Dictionary</div></div>
-          <div class="timeline-item" data-id="digital"><div class="icon">📱</div><div class="title">The Digital Revolution</div></div>
-        </div>
-    </div>
-    <div class="quiz-challenge" aria-labelledby="quiz-title">
-      <h2 id="quiz-title">Chapter 3 Quiz Challenge</h2>
-      <p>Test your knowledge of <em>Two Wordbooks</em> — immediate feedback and short explanations will appear after each choice.</p>
-      
-      <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
-        <p><strong>1.</strong> Who created the first English wordbook, <em>Table Alphabeticall</em> (1604)?</p>
-        <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED.">C) Oxford scholars</button></div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-      
-      <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
-        <p><strong>2.</strong> Which lexicographer published a landmark English dictionary in 1755?</p>
-        <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later.">C) James Murray</button></div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-    </div>
-</main>
+&lt;div class="main-content"&gt;
+    &lt;main&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;An Interactive Timeline of Order&lt;/h2&gt;
+            &lt;p&gt;From simple lists to calculating engines, humanity has always sought to structure and process information.&lt;/p&gt;
+            &lt;div class="timeline" id="timeline-container"&gt;
+              &lt;div class="timeline-item" data-id="cawdrey"&gt;&lt;div class="icon"&gt;📜&lt;/div&gt;&lt;div class="title"&gt;1604 — Cawdrey's &lt;em&gt;Table Alphabeticall&lt;/em&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class="timeline-item" data-id="johnson"&gt;&lt;div class="icon"&gt;📖&lt;/div&gt;&lt;div class="title"&gt;1755 — Johnson's Dictionary&lt;/div&gt;&lt;/div&gt;
+              &lt;div class="timeline-item" data-id="babbage"&gt;&lt;div class="icon"&gt;⚙️&lt;/div&gt;&lt;div class="title"&gt;1822 — Babbage's Engine&lt;/div&gt;&lt;/div&gt;
+              &lt;div class="timeline-item" data-id="oed"&gt;&lt;div class="icon"&gt;📚&lt;/div&gt;&lt;div class="title"&gt;1857 — Oxford English Dictionary&lt;/div&gt;&lt;/div&gt;
+              &lt;div class="timeline-item" data-id="digital"&gt;&lt;div class="icon"&gt;📱&lt;/div&gt;&lt;div class="title"&gt;The Digital Revolution&lt;/div&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="quiz-challenge" aria-labelledby="quiz-title"&gt;
+          &lt;h2 id="quiz-title"&gt;Chapter 3 Quiz Challenge&lt;/h2&gt;
+          &lt;p&gt;Test your knowledge of &lt;em&gt;Two Wordbooks&lt;/em&gt; — immediate feedback and short explanations will appear after each choice.&lt;/p&gt;
+          &lt;div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;"&gt;
+            &lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Who created the first English wordbook, &lt;em&gt;Table Alphabeticall&lt;/em&gt; (1604)?&lt;/p&gt;
+            &lt;div class="choices" role="group"&gt;&lt;button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755."&gt;A) Samuel Johnson&lt;/button&gt;&lt;button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'."&gt;B) Robert Cawdrey&lt;/button&gt;&lt;button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED."&gt;C) Oxford scholars&lt;/button&gt;&lt;/div&gt;
+            &lt;p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"&gt;&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;"&gt;
+            &lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; Which lexicographer published a landmark English dictionary in 1755?&lt;/p&gt;
+            &lt;div class="choices" role="group"&gt;&lt;button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings."&gt;A) Samuel Johnson&lt;/button&gt;&lt;button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604."&gt;B) Robert Cawdrey&lt;/button&gt;&lt;button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later."&gt;C) James Murray&lt;/button&gt;&lt;/div&gt;
+            &lt;p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"&gt;&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;footer class="footer"&gt;
+        &lt;small&gt;An interactive narrative inspired by James Gleick's &lt;em&gt;The Information&lt;/em&gt;. Designed and developed as a class project.&lt;/small&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
 
-<div id="popup-container" class="hidden">
-    <div id="popup-overlay" class="popup-overlay"></div>
-    <div id="popup" class="popup">
-      <button id="closePopup" class="close">✕</button>
-      <div id="popupContent" class="popup-content"></div>
-    </div>
-</div>
+&lt;div id="popup-container" class="hidden"&gt;
+    &lt;div id="popup-overlay" class="popup-overlay"&gt;&lt;/div&gt;
+    &lt;div id="popup" class="popup"&gt;
+      &lt;button id="closePopup" class="close"&gt;✕&lt;/button&gt;
+      &lt;div id="popupContent" class="popup-content"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 
-<footer class="footer">
-    <small>An interactive narrative inspired by James Gleick's <em>The Information</em>. Designed and developed as a class project.</small>
-</footer>
-
-<script>
+&lt;script&gt;
 document.addEventListener('DOMContentLoaded', () => {
     (function(){
       function handleChoiceClick(e){
@@ -384,16 +370,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const popupOverlay = document.getElementById('popup-overlay');
     const clickableItems = document.querySelectorAll('.timeline-item');
     const popupData = {
-      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"<p><strong>What it was:</strong> One of the first English dictionaries... to help people understand 'hard words'.</p><p><strong>Information Theory:</strong> A basic tool for **reducing uncertainty**.</p>"},
-      johnson:{title:"1755 — Johnson's Dictionary",body:"<p><strong>What it was:</strong> A massive scholarly work that standardized English for over 150 years.</p><p><strong>Information Theory:</strong> It was a complex **database** that standardized the 'code' of English, filtering noise.</p>"},
-      babbage:{title:"1822 — Babbage's Difference Engine",body:"<p><strong>What it was:</strong> A mechanical calculator designed to automatically produce error-free mathematical tables.</p><p><strong>Information Theory:</strong> It treated numbers as a **commodity** that could be processed and manufactured by a machine, a foundational concept for automatic computation.</p>"},
-      oed:{title:"1857 — The Oxford English Dictionary",body:"<p><strong>What it was:</strong> An ambitious project to document the history of every word in English.</p><p><strong>Information Theory:</strong> A historical log file for the English language, tracking words as evolving information through a massive, crowdsourced **data collection** effort.</p>"},
-      digital:{title:"The Digital Revolution",body:"<p><strong>What it is:</strong> Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases.</p><p><strong>Information Theory:</strong> The ultimate shift from **atoms** (the physical book) to **bits** (pure information), making information weightless and instant.</p>"}
+      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; One of the first English dictionaries... to help people understand 'hard words'.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; A basic tool for **reducing uncertainty**.&lt;/p&gt;"},
+      johnson:{title:"1755 — Johnson's Dictionary",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; A massive scholarly work that standardized English for over 150 years.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; It was a complex **database** that standardized the 'code' of English, filtering noise.&lt;/p&gt;"},
+      babbage:{title:"1822 — Babbage's Difference Engine",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; A mechanical calculator designed to automatically produce error-free mathematical tables.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; It treated numbers as a **commodity** that could be processed and manufactured by a machine, a foundational concept for automatic computation.&lt;/p&gt;"},
+      oed:{title:"1857 — The Oxford English Dictionary",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; An ambitious project to document the history of every word in English.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; A historical log file for the English language, tracking words as evolving information through a massive, crowdsourced **data collection** effort.&lt;/p&gt;"},
+      digital:{title:"The Digital Revolution",body:"&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt; Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; The ultimate shift from **atoms** (the physical book) to **bits** (pure information), making information weightless and instant.&lt;/p&gt;"}
     };
     function showPopup(id) {
         const data = popupData[id];
         if (!data) return;
-        popupContent.innerHTML = `<h3>${data.title}</h3>${data.body}`;
+        popupContent.innerHTML = `&lt;h3&gt;${data.title}&lt;/h3&gt;${data.body}`;
         popupContainer.classList.remove('hidden');
     }
     function hidePopup() { popupContainer.classList.add('hidden'); }
@@ -402,10 +388,10 @@ document.addEventListener('DOMContentLoaded', () => {
     popupOverlay.addEventListener('click', hidePopup);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !popupContainer.classList.contains('hidden')) hidePopup(); });
 });
-</script>
+&lt;/script&gt;
 
-</body>
-</html> --&gt;</code></pre>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
                 </div>
             </details>
 
@@ -413,24 +399,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 <summary><h3>Full Page Code: `machines.html`</h3></summary>
                 <div class="code-block">
                     <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!-- <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Story of Information | Machines</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-<style>
+                    <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+&lt;title&gt;The Story of Information | Machines&lt;/title&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
     :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); }
-    .main-nav { background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; width: 100%; z-index: 1000; padding: 10px 0; text-align: center; border-bottom: 1px solid rgba(148, 163, 184, 0.2); }
-    .main-nav a { color: var(--color-text-dark); text-decoration: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .main-nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .main-nav a.active { color: var(--color-accent-primary); }
+    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
+    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
+    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+    .main-content { margin-left: 240px; width: calc(100% - 240px); }
     main { padding: 40px 20px; text-align: center; }
     .container { max-width: 1100px; width: 100%; margin: 0 auto 50px auto; }
     .section-icon { font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-accent-primary); display: inline-block; }
@@ -449,58 +438,61 @@ document.addEventListener('DOMContentLoaded', () => {
     #telegraph-sim h1, #telegraph-sim h2 { font-family: 'Special Elite', monospace; color: #f2d49b; }
     #telegraph-sim p { font-family: 'Special Elite', monospace; font-size: 1em; line-height: 1.5; color: #f4f0e8;}
     .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-    .footer a { color: var(--color-accent-primary); }
-</style>
-</head>
-<body>
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-<nav class="main-nav">
-    <a href="index.html">Introduction</a>
-    <a href="chapter3.html">Timeline & Quiz (Ch. 3)</a>
-    <a href="machines.html" class="active">Machines (Ch. 4-5)</a>
-    <a href="mind.html">The Mind</a>
-    <a href="conclusion.html">Conclusion</a>
-    <a href="process.html">Our Process</a>
-</nav>
+&lt;aside class="sidebar"&gt;
+    &lt;h2&gt;The Story of Information&lt;/h2&gt;
+    &lt;nav&gt;
+        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
+        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
+        &lt;a href="machines.html" class="active"&gt;Machines (Ch. 4-5)&lt;/a&gt;
+        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
+        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;
 
-<main>
-    <div class="container babbage-container">
-        <div class="section-icon">⚙️</div>
-        <h2>The First Computer (Ch. 4)</h2>
-        <p>Long before electronics, Charles Babbage dreamed of a machine to "manufacture" numbers. His **Difference Engine**, conceived in 1822, was a colossal arrangement of gears and wheels designed to automate the production of mathematical tables.</p>
-        <p>Though never completed in his lifetime, Babbage's engine represented a bridge from the abstract world of mathematics to the physical world of machinery, treating numbers as a commodity that could be processed and produced. It was the first glimmer of automatic computation.</p>
-    </div>
-    <div class="telegraph-container-wrapper" id="telegraph-sim">
-        <div class="container">
-            <h1>Ultimate Telegraph Simulator (Ch. 5)</h1>
-            <p>Type a message to encode it, play Morse sounds, or try decoding challenges!</p>
-            <h2>✍ Encode a Message</h2>
-            <textarea id="message-input" placeholder="Type here..."></textarea>
-            <div id="paper-tape"></div>
-            <button id="play-sound">▶ Play Morse Sound</button>
-            <button id="clear">🧹 Clear</button>
-            <h2>🔎 Decode Morse Code</h2>
-            <input type="text" id="decode-input" placeholder="Type Morse here (.... . .-.. .-.. ---)">
-            <button id="decode-btn">Decode</button>
-            <p id="decode-output"></p>
-            <h2>🎮 Game Mode</h2>
-            <button id="new-game">Generate Random Message</button>
-            <p id="morse-challenge"></p>
-            <input type="text" id="game-answer" placeholder="Your translation here">
-            <button id="check-answer">Check Answer</button>
-            <p id="game-feedback"></p>
-            <h2>📖 Learn Morse Code</h2>
-            <p>Quick reference chart for letters & numbers:</p>
-            <div id="morse-chart"></div>
-        </div>
-    </div>
-</main>
+&lt;div class="main-content"&gt;
+    &lt;main&gt;
+        &lt;div class="container babbage-container"&gt;
+            &lt;div class="section-icon"&gt;⚙️&lt;/div&gt;
+            &lt;h2&gt;The First Computer (Ch. 4)&lt;/h2&gt;
+            &lt;p&gt;Long before electronics, Charles Babbage dreamed of a machine to "manufacture" numbers. His &lt;strong&gt;Difference Engine&lt;/strong&gt;, conceived in 1822, was a colossal arrangement of gears and wheels designed to automate the production of mathematical tables.&lt;/p&gt;
+            &lt;p&gt;Though never completed in his lifetime, Babbage's engine represented a bridge from the abstract world of mathematics to the physical world of machinery, treating numbers as a commodity that could be processed and produced. It was the first glimmer of automatic computation.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="telegraph-container-wrapper" id="telegraph-sim"&gt;
+            &lt;div class="container"&gt;
+                &lt;h1&gt;Ultimate Telegraph Simulator (Ch. 5)&lt;/h1&gt;
+                &lt;p&gt;Type a message to encode it, play Morse sounds, or try decoding challenges!&lt;/p&gt;
+                &lt;h2&gt;✍ Encode a Message&lt;/h2&gt;
+                &lt;textarea id="message-input" placeholder="Type here..."&gt;&lt;/textarea&gt;
+                &lt;div id="paper-tape"&gt;&lt;/div&gt;
+                &lt;button id="play-sound"&gt;▶ Play Morse Sound&lt;/button&gt;
+                &lt;button id="clear"&gt;🧹 Clear&lt;/button&gt;
+                &lt;h2&gt;🔎 Decode Morse Code&lt;/h2&gt;
+                &lt;input type="text" id="decode-input" placeholder="Type Morse here (.... . .-.. .-.. ---)"&gt;
+                &lt;button id="decode-btn"&gt;Decode&lt;/button&gt;
+                &lt;p id="decode-output"&gt;&lt;/p&gt;
+                &lt;h2&gt;🎮 Game Mode&lt;/h2&gt;
+                &lt;button id="new-game"&gt;Generate Random Message&lt;/button&gt;
+                &lt;p id="morse-challenge"&gt;&lt;/p&gt;
+                &lt;input type="text" id="game-answer" placeholder="Your translation here"&gt;
+                &lt;button id="check-answer"&gt;Check Answer&lt;/button&gt;
+                &lt;p id="game-feedback"&gt;&lt;/p&gt;
+                &lt;h2&gt;📖 Learn Morse Code&lt;/h2&gt;
+                &lt;p&gt;Quick reference chart for letters & numbers:&lt;/p&gt;
+                &lt;div id="morse-chart"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;footer class="footer"&gt;
+        &lt;small&gt;An interactive narrative inspired by James Gleick's &lt;em&gt;The Information&lt;/em&gt;. Designed and developed as a class project.&lt;/small&gt;
+    &lt;/footer&gt;
+&lt;/div&gt;
 
-<footer class="footer">
-    <small>An interactive narrative inspired by James Gleick's <em>The Information</em>. Designed and developed as a class project.</small>
-</footer>
-
-<script>
+&lt;script&gt;
 document.addEventListener('DOMContentLoaded', () => {
     const morseCode = { "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----." };
     const simInput = document.getElementById("message-input");
@@ -537,12 +529,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkAnswerBtn = document.getElementById("check-answer");
     if(checkAnswerBtn) checkAnswerBtn.addEventListener("click", () => { const challenge = document.getElementById("morse-challenge"); const feedback = document.getElementById("game-feedback"); if (!challenge.dataset.answer) { feedback.textContent = "Start a game first!"; return; } if (document.getElementById("game-answer").value.toUpperCase().trim() === challenge.dataset.answer) { feedback.textContent = "✅ Correct! The word was " + challenge.dataset.answer; feedback.style.color = "#34D399"; } else { feedback.textContent = "❌ Try again!"; feedback.style.color = "#F87171"; } });
     const chart = document.getElementById("morse-chart");
-    if(chart) Object.entries(morseCode).forEach(([letter, code]) => { const cell = document.createElement("div"); cell.className = "chart-cell"; cell.innerHTML = `<div><strong>${letter}</strong></div><div class="chart-symbol">${code}</div>`; chart.appendChild(cell); });
+    if(chart) Object.entries(morseCode).forEach(([letter, code]) => { const cell = document.createElement("div"); cell.className = "chart-cell"; cell.innerHTML = `&lt;div&gt;&lt;strong&gt;${letter}&lt;/strong&gt;&lt;/div&gt;&lt;div class="chart-symbol"&gt;${code}&lt;/div&gt;`; chart.appendChild(cell); });
 });
-</script>
+&lt;/script&gt;
 
-</body>
-</html> --&gt;</code></pre>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
                 </div>
             </details>
             
@@ -550,60 +542,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 <summary><h3>Full Page Code: `mind.html`</h3></summary>
                 <div class="code-block">
                     <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!-- <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Story of Information | The Mind</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-<style>
+                    <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+&lt;title&gt;The Story of Information | The Mind&lt;/title&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
     :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); }
-    .main-nav { background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; width: 100%; z-index: 1000; padding: 10px 0; text-align: center; border-bottom: 1px solid rgba(148, 163, 184, 0.2); }
-    .main-nav a { color: var(--color-text-dark); text-decoration: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .main-nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .main-nav a.active { color: var(--color-accent-primary); }
-    main { min-height: calc(100vh - 120px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
+    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
+    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+    .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
     .container { max-width: 1100px; width: 100%; }
     .section-icon { font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-accent-primary); display: inline-block; animation: float 3s ease-in-out infinite; }
     @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
     h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
     p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-    .footer a { color: var(--color-accent-primary); }
-</style>
-</head>
-<body>
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-<nav class="main-nav">
-    <a href="index.html">Introduction</a>
-    <a href="chapter3.html">Timeline & Quiz (Ch. 3)</a>
-    <a href="machines.html">Machines (Ch. 4-5)</a>
-    <a href="mind.html" class="active">The Mind</a>
-    <a href="conclusion.html">Conclusion</a>
-    <a href="process.html">Our Process</a>
-</nav>
+&lt;aside class="sidebar"&gt;
+    &lt;h2&gt;The Story of Information&lt;/h2&gt;
+    &lt;nav&gt;
+        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
+        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
+        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
+        &lt;a href="mind.html" class="active"&gt;The Mind&lt;/a&gt;
+        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
+        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;
 
-<main>
-    <div class="container">
-        <div class="section-icon">🧠</div>
-        <h2>Information & The Mind</h2>
-        <p>Information theory is more than just a concept for computers and telegraphs; it's a fundamental lens through which we can understand our own minds. Cognitive psychology often describes the brain as the ultimate information processor.</p>
-        <p>Just as a telegraph **encodes** a message into dots and dashes, our brains encode sensory experiences into neural signals. These signals are **stored** as memories and can be **retrieved** later. Language itself is a sophisticated code, allowing us to compress and transmit incredibly complex ideas.</p>
-    </div>
-</main>
+&lt;div class="main-content"&gt;
+    &lt;main&gt;
+        &lt;div class="container"&gt;
+            &lt;div class="section-icon"&gt;🧠&lt;/div&gt;
+            &lt;h2&gt;Information & The Mind&lt;/h2&gt;
+            &lt;p&gt;Information theory is more than just a concept for computers and telegraphs; it's a fundamental lens through which we can understand our own minds. Cognitive psychology often describes the brain as the ultimate information processor.&lt;/p&gt;
+            &lt;p&gt;Just as a telegraph &lt;strong&gt;encodes&lt;/strong&gt; a message into dots and dashes, our brains encode sensory experiences into neural signals. These signals are &lt;strong&gt;stored&lt;/strong&gt; as memories and can be &lt;strong&gt;retrieved&lt;/strong&gt; later. Language itself is a sophisticated code, allowing us to compress and transmit incredibly complex ideas.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+&lt;/div&gt;
 
-<footer class="footer">
-    <small>An interactive narrative inspired by James Gleick's <em>The Information</em>. Designed and developed as a class project.</small>
-</footer>
-
-</body>
-</html> --&gt;</code></pre>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
                 </div>
             </details>
             
@@ -611,59 +604,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 <summary><h3>Full Page Code: `conclusion.html`</h3></summary>
                 <div class="code-block">
                     <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!-- <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Story of Information | Conclusion</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-<style>
+                    <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+&lt;title&gt;The Story of Information | Conclusion&lt;/title&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
     :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); }
-    .main-nav { background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; width: 100%; z-index: 1000; padding: 10px 0; text-align: center; border-bottom: 1px solid rgba(148, 163, 184, 0.2); }
-    .main-nav a { color: var(--color-text-dark); text-decoration: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .main-nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .main-nav a.active { color: var(--color-accent-primary); }
-    main { min-height: calc(100vh - 120px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
+    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
+    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+    .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
     .container { max-width: 1100px; width: 100%; }
     h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
     p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
     p a { color: var(--color-accent-primary); font-weight: 600; text-decoration: none; }
     p a:hover { text-decoration: underline; color: var(--color-accent-secondary); }
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-    .footer a { color: var(--color-accent-primary); }
-</style>
-</head>
-<body>
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-<nav class="main-nav">
-    <a href="index.html">Introduction</a>
-    <a href="chapter3.html">Timeline & Quiz (Ch. 3)</a>
-    <a href="machines.html">Machines (Ch. 4-5)</a>
-    <a href="mind.html">The Mind</a>
-    <a href="conclusion.html" class="active">Conclusion</a>
-    <a href="process.html">Our Process</a>
-</nav>
+&lt;aside class="sidebar"&gt;
+    &lt;h2&gt;The Story of Information&lt;/h2&gt;
+    &lt;nav&gt;
+        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
+        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
+        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
+        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="conclusion.html" class="active"&gt;Conclusion&lt;/a&gt;
+        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;
 
-<main>
-    <div class="container">
-        <h2>The Unending Story</h2>
-        <p>From clay tablets to cloud servers, the quest to structure information is a fundamental part of human history. The dictionary is more than a book; it's a testament to our enduring need to create order from chaos, a story that continues to evolve with every new technology and every new word.</p>
-        <p>This journey from atoms to bits, as described by <a href="https://en.wikipedia.org/wiki/James_Gleick" target="_blank" rel="noopener noreferrer">James Gleick</a>, is the story of ourselves.</p>
-    </div>
-</main>
+&lt;div class="main-content"&gt;
+    &lt;main&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;The Unending Story&lt;/h2&gt;
+            &lt;p&gt;From clay tablets to cloud servers, the quest to structure information is a fundamental part of human history. The dictionary is more than a book; it's a testament to our enduring need to create order from chaos, a story that continues to evolve with every new technology and every new word.&lt;/p&gt;
+            &lt;p&gt;This journey from atoms to bits, as described by &lt;a href="https://en.wikipedia.org/wiki/James_Gleick" target="_blank" rel="noopener noreferrer"&gt;James Gleick&lt;/a&gt;, is the story of ourselves.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+&lt;/div&gt;
 
-<footer class="footer">
-    <small>An interactive narrative inspired by James Gleick's <em>The Information</em>. Designed and developed as a class project.</small>
-</footer>
-
-</body>
-</html> --&gt;</code></pre>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
                 </div>
             </details>
         </section>

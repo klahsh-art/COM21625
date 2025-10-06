@@ -8,205 +8,107 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        :root {
-          --font-heading: 'Inter', sans-serif;
-          --font-body: 'Inter', sans-serif;
-          --color-background: #0F172A;
-          --color-text-light: #E2E8F0;
-          --color-text-dark: #94A3B8;
-          --color-accent-primary: #22D3EE;
-          --color-accent-secondary: #67E8F9;
-          --color-card-dark: rgba(30, 41, 59, 0.6);
-        }
-
+        :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.6); }
         *{box-sizing:border-box}
-        /* New: Added for smooth scrolling */
         html { scroll-behavior: smooth; }
-
-        body {
-          margin: 0;
-          font-family: var(--font-body);
-          background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
-          color: var(--color-text-light);
-          line-height: 1.7;
-          -webkit-font-smoothing:antialiased;
-        }
-
-        header {
-          text-align: center;
-          padding: 48px 20px 24px 20px;
-          border-bottom: 1px solid rgba(148,163,184,0.12);
-        }
-
-        header h1 {
-          font-family: var(--font-heading);
-          font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-          color: white;
-          margin: 0 0 6px 0;
-        }
-
-        header p {
-          color: var(--color-text-dark);
-          font-size: 1rem;
-          margin:0;
-        }
-
-        nav.topnav{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:14px 20px;background:rgba(15,23,42,0.8);backdrop-filter:blur(10px);position:sticky;top:0;z-index:99;border-bottom:1px solid rgba(148,163,184,0.06)}
-        nav.topnav a{color:var(--color-text-dark);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;transition: background-color 0.2s, color 0.2s;}
-        nav.topnav a:hover{background:var(--color-card-dark);color:white}
-        nav.topnav a.active { color: var(--color-accent-primary); }
-
-
-        .wrap{max-width:1100px;margin:28px auto;padding:0 18px}
+        body { margin: 0; font-family: var(--font-body); background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); color: var(--color-text-light); line-height: 1.7; display: flex; }
+        .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
+        .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+        .sidebar nav { display: flex; flex-direction: column; }
+        .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+        .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+        .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+        .main-content { margin-left: 240px; width: calc(100% - 240px); padding: 40px 20px; }
+        header { text-align: center; padding-bottom: 24px; border-bottom: 1px solid rgba(148,163,184,0.12); margin-bottom: 28px; }
+        header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 2.8rem); color: white; margin: 0 0 6px 0; }
+        header p { color: var(--color-text-dark); font-size: 1rem; margin:0; }
+        .wrap{max-width:1100px;margin:0 auto;}
         h2{color:var(--color-accent-primary);font-size:1.6rem;margin:24px 0 12px;border-top: 1px solid rgba(148,163,184,0.1); padding-top: 24px;}
         h3{color:white;margin:18px 0 8px}
         p,li{color:var(--color-text-dark);font-size:1rem}
-
         .phase{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px;margin-bottom:18px}
         .prompt{background:rgba(34,211,238,0.04);border-left:3px solid var(--color-accent-primary);padding:12px;border-radius:8px; margin-bottom: 8px;}
         .comment{color:var(--color-text-dark);font-style:italic;margin-top:0px}
-
-        /* New: Container for code blocks */
         .code-block { position: relative; margin-top: 16px; }
-
         pre{background:var(--color-card-dark);color:#E2E8F0;padding:14px;border-radius:8px;overflow:auto;border:1px solid rgba(148,163,184,0.18);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;font-size:0.86rem}
-        
-        /* New: Styles for the copy button */
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--color-text-light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: background-color 0.2s;
-        }
+        .copy-btn { position: absolute; top: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.1); color: var(--color-text-light); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 5px; padding: 4px 8px; cursor: pointer; font-size: 0.8em; transition: background-color 0.2s; }
         .copy-btn:hover { background-color: rgba(255, 255, 255, 0.2); }
-
         .grid{display:grid;grid-template-columns:1fr;gap:12px}
-
-        footer{color:var(--color-text-dark);text-align:center;padding:36px 18px;border-top:1px solid rgba(148,163,184,0.06)}
-
         @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
     </style>
 </head>
 <body>
 
-<nav class="topnav">
-    <a href="index.html">← Back to Project</a>
-    <a href="#overview">Overview</a>
-    <a href="#phases">Phases</a>
-    <a href="#reflection">Reflection</a>
-</nav>
+<aside class="sidebar">
+    <h2>The Story of Information</h2>
+    <nav>
+        <a href="index.html">Introduction</a>
+        <a href="chapter3.html">Timeline & Quiz (Ch. 3)</a>
+        <a href="machines.html">Machines (Ch. 4-5)</a>
+        <a href="mind.html">The Mind</a>
+        <a href="conclusion.html">Conclusion</a>
+        <a href="process.html" class="active">Our Process</a>
+    </nav>
+</aside>
 
-<header>
-    <h1>COM216 Website Development Process</h1>
-    <p>A comprehensive, chronological documentation of how <em>The Story of Information & The Telegraph</em> was built.</p>
-</header>
+<div class="main-content">
+    <header>
+        <h1>COM216 Website Development Process</h1>
+        <p>A chronological documentation of how <em>The Story of Information & The Telegraph</em> was built.</p>
+    </header>
 
-<main class="wrap">
+    <main class="wrap">
+        <section id="overview" class="phase">
+            <h2>Project Summary</h2>
+            <p>This page is a step-by-step account of our collaborative process: initial concept, iterative HTML drafts, design modernization, adding JavaScript interactivity, and structuring the final multi-page site for deployment. Below, you will find the key prompts that guided each step, commentary on what changed, and interactive code snippets that you can copy and reuse.</p>
+        </section>
 
-    <section id="overview" class="phase">
-        <h2>Project Summary</h2>
-        <p>This page is a step-by-step account of our collaborative process: initial concept, iterative HTML drafts, design modernization, adding JavaScript interactivity, and structuring the final multi-page site for deployment. Below, you will find the key prompts that guided each step, commentary on what changed, and interactive code snippets that you can copy and reuse.</p>
-    </section>
-
-    <section id="phases">
-        <h2>Phases of Development</h2>
-
-        <div class="phase">
-            <h3>Phase 1: Foundation & Merging</h3>
-            <div class="prompt"><strong>Prompt:</strong> "Merge this and this into one code."</div>
-            <p class="comment">We started with two separate HTML files—a narrative page and a telegraph simulator. The first step was to carefully merge them into a single, functional file. This involved scoping the unique CSS of each component to prevent conflicts and ensure both parts rendered correctly on one page, establishing the project's foundation.</p>
-        </div>
-
-        <div class="phase">
-            <h3>Phase 2: Polish & Modernization</h3>
-            <div class="prompt"><strong>Prompt:</strong> "Let's polish this... make the color, design, and font more modern, but keep everything I did original."</div>
-            <p class="comment">With the core content merged, we focused on user experience and visual design. We implemented a sleek, dark-mode theme, updated the typography to a clean sans-serif font (Inter), and added subtle interactive effects. The goal was to create a professional feel while preserving the unique, vintage aesthetic of the Telegraph Simulator as a self-contained element.</p>
-        </div>
-
-        <div class="phase">
-            <h3>Phase 3: Content Expansion & Organization</h3>
-            <div class="prompt"><strong>Prompt:</strong> "Can we add more class information that we have talked about... and make sure everything is in order by chapter please."</div>
-            <p class="comment">We expanded the site's narrative by adding new sections based on your class material (such as the summary of Chapter 4 on Babbage). We then reorganized all the content to follow the chronological order of the source material, creating a more logical and historically accurate flow for the user to follow.</p>
-        </div>
-
-        <div class="phase">
-            <h3>Phase 4: Architectural Overhaul (Multi-Page Site)</h3>
-            <div class="prompt"><strong>Prompt:</strong> "I would like to set up my website... not just using one huge HTML but each page have their own different one that can be navigated."</div>
-            <p class="comment">This was a crucial architectural decision. We converted the single-file website into a traditional multi-page site by creating separate, interlinked HTML files for each section. This makes the project more scalable, easier to manage, and aligns with standard web development practices, especially for hosting on platforms like GitHub Pages.</p>
-            <div class="code-block">
-                <button class="copy-btn">Copy</button>
-                <pre><code>&lt;!-- Navigation link example from index.html --&gt;
-&lt;nav class="main-nav"&gt;
-    &lt;a href="index.html" class="active"&gt;Introduction&lt;/a&gt;
-    &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
-    &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
-    &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
-    &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
-    &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
-&lt;/nav&gt;</code></pre>
+        <section id="phases">
+            <h2>Phases of Development</h2>
+            <div class="phase">
+                <h3>Phase 1: Foundation & Merging</h3>
+                <div class="prompt"><strong>Prompt:</strong> "Merge this and this into one code."</div>
+                <p class="comment">We began with two separate HTML files—a narrative page and a telegraph simulator. The first task was to carefully merge them into a single, functional file. This involved scoping the unique CSS of each component to prevent conflicts and ensure both parts rendered correctly on one page, establishing the project's foundation.</p>
             </div>
-        </div>
+            <div class="phase">
+                <h3>Phase 2: Polish & Modernization</h3>
+                <div class="prompt"><strong>Prompt:</strong> "Let's polish this... make the color, design, and font more modern, but keep everything I did original."</div>
+                <p class="comment">With the core content merged, we focused on user experience and visual design. We implemented a sleek, dark-mode theme, updated the typography to a clean sans-serif font (Inter), and added subtle interactive effects. The goal was to create a professional feel while preserving the unique, vintage aesthetic of the Telegraph Simulator as a self-contained element.</p>
+            </div>
+            <div class="phase">
+                <h3>Phase 3: Content Expansion & Organization</h3>
+                <div class="prompt"><strong>Prompt:</strong> "Can we add more class information that we have talked about... and make sure everything is in order by chapter please."</div>
+                <p class="comment">We expanded the site's narrative by adding new sections based on your class material (like the summary of Chapter 4 on Babbage). We then reorganized all the content to follow the chronological order of the source material, creating a more logical and historically accurate flow for the user to follow.</p>
+            </div>
+            <div class="phase">
+                <h3>Phase 4: Architectural Overhaul (Multi-Page Site)</h3>
+                <div class="prompt"><strong>Prompt:</strong> "I would like to set up my website... not just using one huge HTML but each page have their own different one that can be navigated."</div>
+                <p class="comment">This was a crucial architectural decision. We converted the single-file website into a traditional multi-page site by creating separate, interlinked HTML files for each section. This makes the project more scalable, easier to manage, and aligns with standard web development practices, especially for hosting on platforms like GitHub Pages.</p>
+            </div>
+            <div class="phase">
+                <h3>Phase 5: Final Polish and Documentation</h3>
+                <div class="prompt"><strong>Prompt:</strong> "Re-code everything with your ideas... I want someone to be able to see what exactly I did and the process and be able to repurpose it."</div>
+                <p class="comment">The final step was to create this very page and implement a more robust sidebar layout. We added smooth scrolling, interactive "Copy" buttons for the code snippets, and expanded the commentary to ensure the development process is transparent and easy for others to learn from.</p>
+            </div>
+        </section>
         
-        <div class="phase">
-            <h3>Phase 5: Documentation & Final Polish</h3>
-            <div class="prompt"><strong>Prompt:</strong> "Re-code everything with your ideas... I want someone to be able to see what exactly I did and the process and be able to repurpose it."</div>
-            <p class="comment">The final step was to create this very page. We added smooth scrolling for better navigation, interactive "Copy" buttons for the code snippets to make them reusable, and expanded the commentary to ensure the development process is transparent and easy to understand.</p>
-            <div class="code-block">
-                <button class="copy-btn">Copy</button>
-                <pre><code>/* Smooth scrolling CSS */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Copy button JavaScript */
-document.querySelectorAll('.copy-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const pre = button.nextElementSibling;
-        const code = pre.querySelector('code');
-        navigator.clipboard.writeText(code.innerText).then(() => {
-            button.innerText = 'Copied!';
-            setTimeout(() => { button.innerText = 'Copy'; }, 2000);
-        });
-    });
-});</code></pre>
-            </div>
-        </div>
-    </section>
-
-    <section id="reflection" class="phase">
-        <h2>Final Reflection</h2>
-        <p>This project's development highlights the value of an iterative process. We started with a simple functional goal (merging files) and progressively added layers of design, interactivity, and content. Each phase built upon the last, allowing us to refine ideas and adapt the project's structure—transforming it from a single scrolling page into a complete, multi-page website.</p>
-        <p>Technically, the project demonstrates effective use of vanilla JavaScript for DOM manipulation, event handling, and creating interactive features like popups, a quiz, and an audio simulator without relying on external frameworks. Creatively, it shows how to blend different thematic styles into a single, cohesive user experience.</p>
-    </section>
-
-</main>
-
-<footer>
-    <div>© 2025 Hayden Klahs — COM216</div>
-</footer>
+        <section id="reflection" class="phase">
+            <h2>Final Reflection</h2>
+            <p>This project's development highlights the value of an iterative process. We started with a simple functional goal (merging files) and progressively added layers of design, interactivity, and content. Each phase built upon the last, allowing us to refine ideas and adapt the project's structure—transforming it from a single scrolling page into a complete, multi-page website with a professional layout and a clear documentation of its own creation.</p>
+        </section>
+    </main>
+</div>
 
 <script>
-    // JavaScript for the interactive "Copy" buttons
     document.querySelectorAll('.copy-btn').forEach(button => {
         button.addEventListener('click', () => {
-            // Find the <pre> element that comes right after the button
             const pre = button.nextElementSibling;
             if (pre && pre.tagName === 'PRE') {
                 const code = pre.querySelector('code');
                 if (code) {
                     navigator.clipboard.writeText(code.innerText).then(() => {
                         button.innerText = 'Copied!';
-                        // Reset button text after 2 seconds
-                        setTimeout(() => {
-                            button.innerText = 'Copy';
-                        }, 2000);
+                        setTimeout(() => { button.innerText = 'Copy'; }, 2000);
                     }).catch(err => {
                         console.error('Failed to copy text: ', err);
                         button.innerText = 'Error';

@@ -57,6 +57,7 @@
         <a href="chapter3.html">Timeline & Quiz</a>
         <a href="machines.html">Machines</a>
         <a href="mind.html">The Mind</a>
+        <a href="game.html">Game</a>
         <a href="conclusion.html">Conclusion</a>
         <a href="process.html" class="active">Our Process</a>
     </nav>
@@ -97,9 +98,9 @@
             </div>
             
             <div class="phase">
-                <h3>Phase 5: Layout Improvement and Final Polish</h3>
-                <div class="prompt"><strong>Hayden's Goal:</strong> "what if we changed the page layout to something better"</div>
-                <p class="comment">The final structural change was to implement a persistent sidebar navigation layout. This is a more professional and user-friendly design for a multi-part project, as it keeps the main navigation visible at all times, allowing for easy access to all sections of the site. This final step solidified the site's professional feel and improved its overall usability.</p>
+                <h3>Phase 5: Layout Improvement & Game Development</h3>
+                <div class="prompt"><strong>Hayden's Goal:</strong> "what if we changed the page layout to something better... can we make a game like an actual game that I can put into my webrowser"</div>
+                <p class="comment">The final structural change was to implement a persistent sidebar navigation layout. In the same phase, Hayden had the creative vision to expand the project beyond a static narrative and into a fully interactive experience by requesting a platformer game. We developed "Telegraph Runner," a complete, single-file browser game that ties directly into the project's theme.</p>
             </div>
         </section>
 
@@ -108,7 +109,7 @@
             <p>Hayden created and managed the GitHub repository to publish this project online. Here are the exact steps taken:</p>
             <ol>
                 <li><strong>Create a Repository:</strong> A new public repository was created on GitHub, named `COM216`.</li>
-                <li><strong>Upload Files:</strong> All six HTML files were uploaded to the main branch of the repository.</li>
+                <li><strong>Upload Files:</strong> All seven HTML files were uploaded to the main branch of the repository.</li>
                 <li><strong>Enable GitHub Pages:</strong> In the repository's **Settings**, under the **Pages** section, the source was set to "Deploy from a branch."</li>
                 <li><strong>Configure and Deploy:</strong> The branch was set to `main` and the folder to `/ (root)`. After saving, GitHub Pages automatically built and deployed the site.</li>
             </ol>
@@ -215,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
         &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
         &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="game.html"&gt;Game&lt;/a&gt;
         &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
         &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
     &lt;/nav&gt;
@@ -293,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         &lt;a href="chapter3.html" class="active"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
         &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
         &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="game.html"&gt;Game&lt;/a&gt;
         &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
         &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
     &lt;/nav&gt;
@@ -449,6 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
         &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
         &lt;a href="machines.html" class="active"&gt;Machines (Ch. 4-5)&lt;/a&gt;
         &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="game.html"&gt;Game&lt;/a&gt;
         &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
         &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
     &lt;/nav&gt;
@@ -579,6 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
         &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
         &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
         &lt;a href="mind.html" class="active"&gt;The Mind&lt;/a&gt;
+        &lt;a href="game.html"&gt;Game&lt;/a&gt;
         &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
         &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
     &lt;/nav&gt;
@@ -600,6 +605,82 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </details>
             
+            <details>
+                <summary><h3>Full Page Code: `game.html`</h3></summary>
+                <div class="code-block">
+                    <button class="copy-btn">Copy Code</button>
+                    <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+&lt;title&gt;Telegraph Runner — Platformer&lt;/title&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
+  :root{ --bg:#071026; --panel:#0b2a3a; --accent:#22d3ee; --muted:#9fb0c1; --good:#34d399; --bad:#f87171; }
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#04101a,#071026);font-family:Inter, Arial, sans-serif;color:#e6f6fb}
+  .wrap{max-width:1100px;margin:18px auto;padding:12px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 10px}
+  h1{font-family:'Press Start 2P',monospace;font-size:18px;margin:0;color:var(--accent)}
+  .hud{display:flex;gap:10px;align-items:center;font-weight:700}
+  .hud .pill{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+  #gameCanvas{display:block;margin:10px auto;border-radius:8px; background: linear-gradient(180deg,#092233,#071026); box-shadow:0 14px 40px rgba(0,0,0,0.6)}
+  .controls{max-width:1100px;margin:10px auto;color:var(--muted);font-size:0.9rem}
+  .buttons{display:flex;gap:8px;margin-top:8px}
+  button,a.button{background:var(--accent);color:#071026;border:0;padding:8px 10px;border-radius:8px;font-weight:700;text-decoration:none;cursor:pointer}
+  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#0b2633;border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:10px;color:#e6f6fb;min-width:300px;z-index:100}
+  .overlay{position:fixed;inset:0;background:rgba(2,6,14,0.6);backdrop-filter:blur(2px);z-index:90}
+  .codebox{background:#041826;padding:12px;border-radius:8px;font-family:monospace;color:#bfefff;overflow:auto}
+  .small{font-size:0.9rem;color:var(--muted)}
+  footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.9rem;text-align:center}
+  .station-connected{color:var(--good);font-weight:800}
+  .station-wait{color:var(--accent);font-weight:700}
+  .footer-links{margin-top:8px}
+  @media (max-width:640px){
+    canvas{width:100%}
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="wrap"&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Telegraph Runner&lt;/h1&gt;
+      &lt;div class="hud"&gt;
+        &lt;div class="pill"&gt;Level: &lt;span id="hud-level"&gt;1&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="pill"&gt;Score: &lt;span id="hud-score"&gt;0&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="pill"&gt;Lives: &lt;span id="hud-lives"&gt;3&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="pill"&gt;Stations: &lt;span id="hud-stations"&gt;0/0&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;canvas id="gameCanvas" width="1000" height="560" aria-label="Telegraph Runner Game"&gt;&lt;/canvas&gt;
+
+    &lt;div class="controls"&gt;
+      &lt;div class="small"&gt;Controls: ← → to move, ↑ / Space to jump. Reach telegraph stations and solve the Morse mini-puzzle to connect them. Connect all stations to advance. You have limited lives — falling below the canvas or running out of time costs a life.&lt;/div&gt;
+      &lt;div class="buttons" style="margin-top:8px"&gt;
+        &lt;button id="startBtn"&gt;Start / Restart&lt;/button&gt;
+        &lt;button id="muteBtn"&gt;🔊 Toggle Sound&lt;/button&gt;
+        &lt;a class="button" id="backBtn" href="index.html"&gt;↩ Back to Project&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div style="height:18px"&gt;&lt;/div&gt;
+    &lt;footer&gt;Made for COM216 — Hayden Klahs · &lt;span id="highscoreText"&gt;High Score: 0&lt;/span&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+
+  &lt;div id="overlay" class="overlay" style="display:none"&gt;&lt;/div&gt;
+  &lt;div id="modal" class="modal" style="display:none" role="dialog" aria-modal="true"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// Full Game Script...
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </details>
+
             <details>
                 <summary><h3>Full Page Code: `conclusion.html`</h3></summary>
                 <div class="code-block">
@@ -641,6 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
         &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
         &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
         &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
+        &lt;a href="game.html"&gt;Game&lt;/a&gt;
         &lt;a href="conclusion.html" class="active"&gt;Conclusion&lt;/a&gt;
         &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
     &lt;/nav&gt;

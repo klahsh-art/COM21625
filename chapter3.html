@@ -11,15 +11,16 @@
     :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); }
-    .main-nav { background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; width: 100%; z-index: 1000; padding: 10px 0; text-align: center; border-bottom: 1px solid rgba(148, 163, 184, 0.2); }
-    .main-nav a { color: var(--color-text-dark); text-decoration: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .main-nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .main-nav a.active { color: var(--color-accent-primary); }
-    main { padding: 40px 20px; text-align: center; }
+    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
+    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
+    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
+    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
+    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
+    .main-content { margin-left: 240px; width: calc(100% - 240px); padding: 40px 20px; text-align: center; }
     .container { max-width: 1100px; width: 100%; margin: 0 auto 50px auto; }
     h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
-    h3 { font-size:clamp(1.8rem, 4vw, 2.5rem); margin: 40px 0 20px 0; color: white; }
     p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
     .timeline{display:flex;gap:20px;align-items:stretch;justify-content:center;margin:30px 0;flex-wrap:wrap;}
     .timeline-item{ flex-basis: 220px; background: var(--color-card-dark); backdrop-filter: blur(10px); border-radius:15px; padding:20px; cursor:pointer; box-shadow:0 5px 20px var(--shadow-color); border:1px solid rgba(148, 163, 184, 0.2); transition:transform .2s,box-shadow .2s, border-color .2s; color: var(--color-text-light); }
@@ -32,55 +33,60 @@
     .close:hover{ color: white; }
     .popup-content h3{font-family: var(--font-heading); margin-top:0; font-size: 1.75rem; color: white;}
     .popup-content p{color:var(--color-text-dark);} @keyframes fadeIn {from{opacity:0;} to{opacity:1;}} @keyframes fadeInPopup {from{opacity:0;transform:translate(-50%,-46%);}to{opacity:1;transform:translate(-50%,-50%);}}
-    .quiz-challenge { padding:40px 20px; background: rgba(30, 41, 59, 0.7); border-radius:15px; border:1px solid rgba(148, 163, 184, 0.2); margin: 0 auto; max-width: 1100px; }
+    .quiz-challenge { padding:40px 20px; background: rgba(30, 41, 59, 0.7); border-radius:15px; border:1px solid rgba(148, 163, 184, 0.2); margin: 50px auto 0 auto; max-width: 1100px; }
     .quiz-question p { color: var(--color-text-light); }
     .quiz-choice { margin:6px 6px 6px 0; padding:8px 12px; border-radius:8px; border:1px solid rgba(148, 163, 184, 0.3); background:transparent; color: var(--color-text-light); cursor:pointer; transition:transform .12s, box-shadow .12s, background-color .12s; }
     .quiz-choice:hover { transform:translateY(-3px); background-color: rgba(34, 211, 238, 0.1); border-color: var(--color-accent-primary); }
     .quiz-feedback.correct { color: #34D399; } .quiz-feedback.incorrect { color: #F87171; }
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-    .footer a { color: var(--color-accent-primary); }
+    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); margin-top: 50px; }
 </style>
 </head>
 <body>
 
-<nav class="main-nav">
-    <a href="index.html">Introduction</a>
-    <a href="chapter3.html" class="active">Timeline & Quiz (Ch. 3)</a>
-    <a href="machines.html">Machines (Ch. 4-5)</a>
-    <a href="mind.html">The Mind</a>
-    <a href="conclusion.html">Conclusion</a>
-    <a href="process.html">Our Process</a>
-</nav>
+<aside class="sidebar">
+    <h2>The Story of Information</h2>
+    <nav>
+        <a href="index.html">Introduction</a>
+        <a href="chapter3.html" class="active">Timeline & Quiz (Ch. 3)</a>
+        <a href="machines.html">Machines (Ch. 4-5)</a>
+        <a href="mind.html">The Mind</a>
+        <a href="conclusion.html">Conclusion</a>
+        <a href="process.html">Our Process</a>
+    </nav>
+</aside>
 
-<main>
-    <div class="container">
-        <h2>An Interactive Timeline of Order</h2>
-        <p>From simple lists to calculating engines, humanity has always sought to structure and process information.</p>
-        <div class="timeline" id="timeline-container">
-          <div class="timeline-item" data-id="cawdrey"><div class="icon">📜</div><div class="title">1604 — Cawdrey's <em>Table Alphabeticall</em></div></div>
-          <div class="timeline-item" data-id="johnson"><div class="icon">📖</div><div class="title">1755 — Johnson's Dictionary</div></div>
-          <div class="timeline-item" data-id="babbage"><div class="icon">⚙️</div><div class="title">1822 — Babbage's Engine</div></div>
-          <div class="timeline-item" data-id="oed"><div class="icon">📚</div><div class="title">1857 — Oxford English Dictionary</div></div>
-          <div class="timeline-item" data-id="digital"><div class="icon">📱</div><div class="title">The Digital Revolution</div></div>
+<div class="main-content">
+    <main>
+        <div class="container">
+            <h2>An Interactive Timeline of Order</h2>
+            <p>From simple lists to calculating engines, humanity has always sought to structure and process information.</p>
+            <div class="timeline" id="timeline-container">
+              <div class="timeline-item" data-id="cawdrey"><div class="icon">📜</div><div class="title">1604 — Cawdrey's <em>Table Alphabeticall</em></div></div>
+              <div class="timeline-item" data-id="johnson"><div class="icon">📖</div><div class="title">1755 — Johnson's Dictionary</div></div>
+              <div class="timeline-item" data-id="babbage"><div class="icon">⚙️</div><div class="title">1822 — Babbage's Engine</div></div>
+              <div class="timeline-item" data-id="oed"><div class="icon">📚</div><div class="title">1857 — Oxford English Dictionary</div></div>
+              <div class="timeline-item" data-id="digital"><div class="icon">📱</div><div class="title">The Digital Revolution</div></div>
+            </div>
         </div>
-    </div>
-    <div class="quiz-challenge" aria-labelledby="quiz-title">
-      <h2 id="quiz-title">Chapter 3 Quiz Challenge</h2>
-      <p>Test your knowledge of <em>Two Wordbooks</em> — immediate feedback and short explanations will appear after each choice.</p>
-      
-      <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
-        <p><strong>1.</strong> Who created the first English wordbook, <em>Table Alphabeticall</em> (1604)?</p>
-        <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED.">C) Oxford scholars</button></div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-      
-      <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
-        <p><strong>2.</strong> Which lexicographer published a landmark English dictionary in 1755?</p>
-        <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later.">C) James Murray</button></div>
-        <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
-      </div>
-    </div>
-</main>
+        <div class="quiz-challenge" aria-labelledby="quiz-title">
+          <h2 id="quiz-title">Chapter 3 Quiz Challenge</h2>
+          <p>Test your knowledge of <em>Two Wordbooks</em> — immediate feedback and short explanations will appear after each choice.</p>
+          <div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;">
+            <p><strong>1.</strong> Who created the first English wordbook, <em>Table Alphabeticall</em> (1604)?</p>
+            <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED.">C) Oxford scholars</button></div>
+            <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
+          </div>
+          <div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;">
+            <p><strong>2.</strong> Which lexicographer published a landmark English dictionary in 1755?</p>
+            <div class="choices" role="group"><button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings.">A) Samuel Johnson</button><button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604.">B) Robert Cawdrey</button><button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later.">C) James Murray</button></div>
+            <p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"></p>
+          </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <small>An interactive narrative inspired by James Gleick's <em>The Information</em>. Designed and developed as a class project.</small>
+    </footer>
+</div>
 
 <div id="popup-container" class="hidden">
     <div id="popup-overlay" class="popup-overlay"></div>
@@ -89,10 +95,6 @@
       <div id="popupContent" class="popup-content"></div>
     </div>
 </div>
-
-<footer class="footer">
-    <small>An interactive narrative inspired by James Gleick's <em>The Information</em>. Designed and developed as a class project.</small>
-</footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Telegraph Runner — Arcade v3 (Fixed)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#041424; --accent:#22d3ee; --accent-2:#67e8f9; --muted:#9fb0c1; --good:#34d399; --bad:#f87171;
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#03161a,#041424);font-family:Inter, Arial, sans-serif;color:#e6f6fb}
+  .wrap{max-width:1100px;margin:18px auto;padding:12px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 10px}
+  h1{font-family:'Press Start 2P',monospace;font-size:18px;margin:0;color:var(--accent)}
+  .hud{display:flex;gap:10px;align-items:center;font-weight:700}
+  .hud .pill{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+  #gameCanvas{display:block;margin:10px auto;border-radius:8px; background: linear-gradient(180deg,#082b34,#041424); box-shadow:0 14px 40px rgba(0,0,0,0.6); max-width:100%;}
+  .controls{max-width:1100px;margin:10px auto;color:var(--muted);font-size:0.95rem}
+  .buttons{display:flex;gap:8px;margin-top:8px}
+  button,a.button{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041426;border:0;padding:8px 10px;border-radius:8px;font-weight:700;text-decoration:none;cursor:pointer}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(2px);z-index:90;display:none}
+  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#072f36;border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:10px;color:#e6f6fb;min-width:320px;z-index:100;display:none}
+  .timing-bar { width: 100%; height: 26px; background: rgba(255,255,255,0.04); border-radius:6px; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,0.03)}
+  .timing-zone { position:absolute; top:0; height:100%; background: linear-gradient(90deg, rgba(34,211,238,0.18), rgba(103,232,249,0.12)); border-right:1px solid rgba(255,255,255,0.02); border-left:1px solid rgba(255,255,255,0.02)}
+  .timing-marker { position:absolute; top:0; width:8px; height:100%; background: linear-gradient(180deg, #ffffff, #c7ffff); box-shadow:0 0 10px rgba(34,211,238,0.8); transform:translateX(-50%); }
+  .progress-dots { display:flex; gap:6px; margin-top:10px; justify-content:center }
+  .dot { width:14px; height:14px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.03) }
+  .dot.on { background:var(--good); box-shadow:0 0 10px rgba(52,211,153,0.5) }
+  .big-cta { font-size:1rem; padding:10px 14px; border-radius:10px; font-weight:800; background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#041426; border:0; cursor:pointer }
+  .small-btn { padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:rgba(0,0,0,0.06); color:var(--muted); cursor:pointer }
+  .small{font-size:0.92rem;color:var(--muted)}
+  footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.9rem;text-align:center}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <h2>The Story of Information</h2>
+    <nav>
+        <a href="index.html">Introduction</a>
+        <a href="chapter3.html">Timeline & Quiz (Ch. 3)</a>
+        <a href="machines.html">Machines (Ch. 4-5)</a>
+        <a href="mind.html">The Mind</a>
+        <a href="game.html" class="active">Game</a>
+        <a href="conclusion.html">Conclusion</a>
+        <a href="process.html">Our Process</a>
+    </nav>
+</aside>
+
+<div class="main-content">
+  <div class="wrap">
+    <header>
+      <h1>Telegraph Runner</h1>
+      <div class="hud">
+        <div class="pill">Level: <span id="hud-level">1</span></div>
+        <div class="pill">Score: <span id="hud-score">0</span></div>
+        <div class="pill">Lives: <span id="hud-lives">3</span></div>
+        <div class="pill">Stations: <span id="hud-stations">0/0</span></div>
+        <div class="pill">⏱ Time: <span id="hud-timer">45</span>s</div>
+      </div>
+    </header>
+
+    <canvas id="gameCanvas" width="1000" height="560" aria-label="Telegraph Runner Arcade Game"></canvas>
+
+    <div class="controls">
+      <div class="small">Controls: ← → to move, ↑ or Space to jump. Press <strong>F</strong> or <strong>Shift</strong> to shoot. Reach telegraph stations and play the timing mini-game to connect them. Each station repaired shrinks the timing zone for the next one.</div>
+      <div class="buttons">
+        <button id="startBtn">Start / Restart</button>
+        <button id="muteBtn">🔊 Toggle Sound</button>
+      </div>
+    </div>
+
+    <footer>
+      <div>Made for COM216 — © 2025 Hayden Klahs</div>
+      <div id="highscoreText" style="margin-top:6px">High Score: 0</div>
+    </footer>
+  </div>
+</div>
+
+  <div id="overlay" class="overlay"></div>
+  <div id="modal" class="modal" role="dialog" aria-modal="true"></div>
+
+<script>
+// --- CONFIGURATION ---
+const CONFIG = {
+    gravity: 1200, moveSpeed: 220, jumpSpeed: 460, canvasWidth: 1000, canvasHeight: 560,
+    initialLives: 3, levelStartTime: 45, timingHitsNeeded: 3, timingSpeed: 1.6,
+    timingZoneOriginal: 0.20, timingShrinkFactor: 0.9, timingZoneMin: 0.08,
+    dronesPerLevel: 4, pulseLimit: 3, droneHitPenaltySeconds: 5,
+    droneScore: 100, scoring: { baseConnect: 150, timeBonus: 4, perfectBonus: 200 },
+    timeGainOnComplete: 10, timePenaltyOnMiss: 7
+};
+
+// --- DOM ELEMENTS ---
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const hud = {
+    level: document.getElementById('hud-level'),
+    score: document.getElementById('hud-score'),
+    lives: document.getElementById('hud-lives'),
+    stations: document.getElementById('hud-stations'),
+    timer: document.getElementById('hud-timer'),
+    highscore: document.getElementById('highscoreText')
+};
+const overlay = document.getElementById('overlay');
+const modal = document.getElementById('modal');
+
+// --- GAME STATE ---
+let keys = {};
+let lastTime = 0;
+let player, platforms, stations, particles, pulses, drones;
+let score, lives, currentLevel, levelTime, levelTimer, levelStationsTotal, connectedCount;
+let running = false;
+let audioCtx = null;
+let audioEnabled = true;
+const storageKey = 'telegraph_runner_v3_highscore';
+let timingZoneRatio = CONFIG.timingZoneOriginal;
+let respawnImmunity = 0;
+
+// --- LEVELS & ASSETS ---
+const LEVELS = [
+    { platforms: [{x:0,y:520,w:1000,h:40},{x:120,y:440,w:160,h:18},{x:360,y:380,w:160,h:18},{x:640,y:320,w:200,h:18},{x:860,y:240,w:120,h:18}], stations: [{x:140,y:420},{x:380,y:340},{x:900,y:200}] },
+    { platforms: [{x:0,y:520,w:1000,h:40},{x:60,y:440,w:120,h:18},{x:220,y:380,w:140,h:18},{x:420,y:320,w:140,h:18},{x:620,y:260,w:120,h:18},{x:820,y:200,w:140,h:18}], stations: [{x:80,y:420},{x:460,y:300},{x:840,y:180}] },
+    { platforms: [{x:0,y:520,w:1000,h:40},{x:60,y:460,w:110,h:18},{x:200,y:420,w:160,h:18},{x:420,y:360,w:180,h:18},{x:640,y:300,w:160,h:18},{x:820,y:240,w:140,h:18}], stations: [{x:220,y:400},{x:460,y:340},{x:700,y:260},{x:860,y:220}] }
+];
+
+// --- CORE GAME LOGIC ---
+function init() {
+    canvas.width = CONFIG.canvasWidth;
+    canvas.height = CONFIG.canvasHeight;
+    setupLevel(1, true);
+    render();
+    document.getElementById('startBtn').onclick = () => startGame(1);
+}
+
+function startGame(level) {
+    const isNewGame = level === 1;
+    setupLevel(level, isNewGame);
+    hideModal();
+    running = true;
+    lastTime = performance.now();
+    startLevelTimer();
+    requestAnimationFrame(loop);
+}
+
+function loop(timestamp) {
+    if (!running) return;
+    const dt = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
+    
+    update(dt);
+    render();
+    
+    requestAnimationFrame(loop);
+}
+
+function update(dt) {
+    playerUpdate(dt);
+    updateDrones(dt);
+    updatePulses(dt);
+    checkStationCollision();
+}
+
+function render() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const g=ctx.createLinearGradient(0,0,0,canvas.height);
+    g.addColorStop(0,'#082b34'); g.addColorStop(1,'#041424');
+    ctx.fillStyle=g; ctx.fillRect(0,0,canvas.width,canvas.height);
+  
+    platforms.forEach(p => { ctx.fillStyle='#153842'; roundRect(ctx,p.x,p.y,p.w,p.h,6,true,false); });
+    stations.forEach(s => {
+        ctx.fillStyle=s.connected?'#20382a':'#2a2e3a'; roundRect(ctx,s.x-18,s.y-20,68,40,8,true,false);
+        ctx.fillStyle=s.connected?'#34d399':'#67e8f9'; ctx.fillRect(s.x+8,s.y-42,6,26);
+        ctx.beginPath(); ctx.arc(s.x+20,s.y-6,8,0,Math.PI*2);
+        ctx.fillStyle=s.connected?'rgba(52,211,153,0.95)':'rgba(34,211,238,0.95)'; ctx.fill();
+        ctx.fillStyle='#041526'; ctx.font='700 12px Inter, Arial'; ctx.textAlign='center'; ctx.fillText(s.connected?'✓':'?',s.x+20,s.y-2);
+    });
+    drones.forEach(d => { if(d.alive) { ctx.fillStyle='#ffce54'; ctx.fillRect(d.x-8,d.y-8,16,16); }});
+    pulses.forEach(p => { ctx.fillStyle = 'rgba(160,240,255,0.98)'; ctx.fillRect(p.x-4, p.y-3, 8, 6); });
+    
+    if (respawnImmunity <= 0 || (Math.floor(Date.now() / 100) % 2 === 0)) {
+        ctx.fillStyle='#f6f9fb'; roundRect(ctx, player.x, player.y, player.w, player.h, 6, true, false);
+    }
+    
+    particles.forEach(p => { p.vy+=800*0.016; p.x+=p.vx*0.016; p.y+=p.vy*0.016; p.life-=0.016; ctx.fillStyle=`rgba(34,211,238,${Math.max(0,p.life/1)})`; ctx.fillRect(p.x,p.y,3,3); });
+    particles = particles.filter(p => p.life > 0);
+}
+
+// --- ENTITY & STATE MANAGEMENT ---
+function setupLevel(n, isNewGame) {
+    const L = LEVELS[(n - 1) % LEVELS.length];
+    platforms = L.platforms.map(p => ({...p}));
+    stations = L.stations.map(s => ({...s, connected: false}));
+    levelStationsTotal = stations.length;
+    connectedCount = 0;
+    player = { x:80, y:400, vx:0, vy:0, w:24, h:36, onGround:false, facing:1 };
+    
+    if (isNewGame) {
+        score = 0;
+        lives = CONFIG.initialLives;
+        timingZoneRatio = CONFIG.timingZoneOriginal;
+    }
+
+    levelTime = CONFIG.levelStartTime;
+    currentLevel = n;
+    
+    updateHUD();
+    spawnDrones();
+    hud.highscore.textContent = `High Score: ${localStorage.getItem(storageKey) || 0}`;
+}
+
+function playerUpdate(dt) {
+    if (!player) return;
+    if (respawnImmunity > 0) respawnImmunity -= dt;
+
+    const acc = CONFIG.moveSpeed;
+    if(keys['ArrowLeft'] || keys['a']){ player.vx = -acc; player.facing = -1; }
+    else if(keys['ArrowRight'] || keys['d']){ player.vx = acc; player.facing = 1; }
+    else { player.vx = 0; }
+
+    if((keys['ArrowUp'] || keys['w'] || keys[' ']) && player.onGround){
+        player.vy = -CONFIG.jumpSpeed; player.onGround = false;
+    }
+
+    player.vy += CONFIG.gravity * dt;
+    player.x += player.vx * dt;
+    player.y += player.vy * dt;
+
+    if(player.x < 0) player.x = 0;
+    if(player.x + player.w > CONFIG.canvasWidth) player.x = CONFIG.canvasWidth - player.w;
+
+    player.onGround = false;
+    for(const p of platforms){
+        if(rectsOverlap(player, p)){
+            const prevBottom = (player.y + player.h) - (player.vy * dt);
+            if(prevBottom <= p.y){
+                player.y = p.y - player.h; player.vy = 0; player.onGround = true;
+            } else if (player.vy > 0) {
+                if(player.vx > 0) player.x = p.x - player.w;
+                else player.x = p.x + p.w;
+            }
+        }
+    }
+    if(player.y > CONFIG.canvasHeight + 100) loseLife();
+}
+
+function updateDrones(dt){
+  drones.forEach(d => {
+    if(!d.alive) return;
+    d.wobble += dt * 4;
+    d.x = d.baseX + Math.sin(d.wobble) * (d.range / 2);
+    d.y += Math.sin(d.wobble*0.6) * 0.2;
+
+    for(let i = pulses.length - 1; i >= 0; i--){
+        const p = pulses[i];
+        if(p.active && rectsOverlap({x:d.x-8, y:d.y-8, w:16, h:16}, {x:p.x-4, y:p.y-3, w:8, h:6})){
+            d.alive = false;
+            p.active = false;
+            onDroneDestroyed(d);
+        }
+    }
+
+    if(d.alive && rectsOverlap(player, {x:d.x-8,y:d.y-8,w:16,h:16}) && respawnImmunity <= 0){
+      d.alive = false;
+      onDroneCollision();
+    }
+  });
+}
+
+function updatePulses(dt){
+  for(let i=pulses.length-1; i>=0; i--){
+    const p = pulses[i];
+    if(!p.active) { pulses.splice(i,1); continue; }
+    p.x += p.dir * p.speed * dt;
+    p.life -= dt;
+    if(p.life <= 0 || p.x < -20 || p.x > canvas.width + 20) p.active = false;
+  }
+}
+
+function checkStationCollision(){
+  stations.forEach((s, idx) => {
+    if (!s.connected && rectsOverlap(player, {x:s.x-18, y:s.y-20, w:68, h:40})) {
+      openStationRepair(idx);
+    }
+  });
+}
+
+function onDroneCollision() {
+    loseLife();
+    playStatic();
+    levelTime = Math.max(0, levelTime - CONFIG.droneHitPenaltySeconds);
+}
+
+// --- GAME FLOW & UI ---
+function updateHUD() {
+    hud.level.textContent = currentLevel;
+    hud.score.textContent = score;
+    hud.lives.textContent = lives;
+    hud.stations.textContent = `${connectedCount}/${levelStationsTotal}`;
+    hud.timer.textContent = Math.max(0, Math.floor(levelTime));
+}
+
+function loseLife(){
+  if (respawnImmunity > 0) return;
+  lives--;
+  respawnImmunity = 2.5;
+  spawnParticles(player.x+player.w/2, player.y+player.h/2, 18);
+  
+  if(lives <= 0){
+    gameOver();
+  } else {
+    player.x = 80;
+    player.y = 400;
+    player.vx = 0;
+    player.vy = 0;
+  }
+  updateHUD();
+}
+
+function gameOver(){
+  running = false;
+  clearInterval(levelTimer);
+  const prevHigh = parseInt(localStorage.getItem(storageKey) || '0', 10);
+  if (score > prevHigh) {
+    localStorage.setItem(storageKey, String(score));
+    hud.highscore.textContent = `High Score: ${score}`;
+  }
+  showModal(`<h3>Game Over</h3><p class="small">You ran out of lives.</p><div style="margin-top:10px"><button onclick="hideModal(); startGame(1);" class="big-cta">Restart</button></div>`);
+}
+
+function checkWin(){
+  if(connectedCount >= levelStationsTotal){
+    running = false;
+    clearInterval(levelTimer);
+    score += 500 + Math.floor(levelTime * CONFIG.scoring.timeBonus);
+    updateHUD();
+    showModal(`<h3>Level ${currentLevel} Complete!</h3><p class="small">Score: ${score}</p><div style="margin-top:10px"><button onclick="hideModal(); startGame(currentLevel + 1);" class="big-cta">Next Level</button></div>`);
+  }
+}
+
+// --- MODAL & MINI-GAME ---
+function showModal(html){ overlay.style.display='block'; modal.style.display='block'; modal.innerHTML = html; }
+function hideModal(){ overlay.style.display='none'; modal.style.display='none'; }
+
+function openStationRepair(stationIdx){
+  if (!running) return;
+  running = false;
+  clearInterval(levelTimer);
+  showTimingModal(stationIdx);
+}
+
+function showTimingModal(stationIdx) {
+    showModal('');
+    modal.innerHTML = `
+        <h3>Repair the Signal</h3>
+        <p class="small">Press Space or click REPAIR when the marker is in the zone.</p>
+        <div class="timing-bar" style="max-width:300px; margin:12px auto;">
+            <div class="timing-zone"></div>
+            <div class="timing-marker"></div>
+        </div>
+        <div class="progress-dots"></div>
+        <div style="margin-top:12px; text-align:center;">
+            <button class="big-cta">REPAIR</button>
+        </div>
+    `;
+
+    const timingBar = modal.querySelector('.timing-bar');
+    const zoneEl = modal.querySelector('.timing-zone');
+    const marker = modal.querySelector('.timing-marker');
+    const progress = modal.querySelector('.progress-dots');
+    
+    const widthPx = timingBar.clientWidth;
+    const currentZoneRatio = CONFIG.timingZoneOriginal * Math.pow(CONFIG.timingShrinkFactor, connectedCount);
+    const zoneWidth = Math.max(widthPx * currentZoneRatio, widthPx * CONFIG.timingZoneMin);
+    const zoneLeft = (widthPx - zoneWidth) / 2;
+    zoneEl.style.cssText = `left: ${zoneLeft}px; width: ${zoneWidth}px;`;
+
+    for (let i = 0; i < CONFIG.timingHitsNeeded; i++) {
+        progress.appendChild(document.createElement('div')).className = 'dot';
+    }
+
+    let hits = 0, pos = 0, direction = 1, speed = CONFIG.timingSpeed, lastAnim = performance.now(), runningTiming = true;
+
+    const stepMarker = (ts) => {
+        if (!runningTiming) return;
+        const dt = (ts - lastAnim) / 1000;
+        lastAnim = ts;
+        pos += direction * speed * dt;
+        if (pos >= 1) { pos = 1; direction = -1; }
+        if (pos <= 0) { pos = 0; direction = 1; }
+        marker.style.left = (pos * 100) + '%';
+        requestAnimationFrame(stepMarker);
+    };
+    requestAnimationFrame(stepMarker);
+
+    const doRepairAction = () => {
+        if (!runningTiming) return;
+        const markerPos = parseFloat(marker.style.left) / 100 * widthPx;
+        if (markerPos >= zoneLeft && markerPos <= (zoneLeft + zoneWidth)) {
+            hits++;
+            progress.querySelectorAll('.dot')[hits-1].classList.add('on');
+            playBeep(0.05);
+            if (hits >= CONFIG.timingHitsNeeded) {
+                runningTiming = false;
+                onStationConnected(stationIdx);
+            }
+        } else {
+            levelTime -= CONFIG.timePenaltyOnMiss;
+            playStatic();
+        }
+        updateHUD();
+    };
+    
+    modal.querySelector('.big-cta').onclick = doRepairAction;
+    const keydownHandler = (e) => {
+        if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') { e.preventDefault(); doRepairAction(); }
+        if (e.key === 'Escape') { hideModal(); resumeGame(); window.removeEventListener('keydown', keydownHandler); }
+    };
+    window.addEventListener('keydown', keydownHandler);
+}
+
+
+function onStationConnected(stationIdx) {
+    stations[stationIdx].connected = true;
+    connectedCount++;
+    score += CONFIG.scoring.baseConnect + Math.floor(levelTime * CONFIG.scoring.timeBonus);
+    levelTime += CONFIG.timeGainOnComplete;
+    timingZoneRatio = Math.max(CONFIG.timingZoneMin, timingZoneRatio * CONFIG.timingShrinkFactor);
+    updateHUD();
+    hideModal();
+
+    if (connectedCount === levelStationsTotal) {
+        running = false;
+        showModal(`<h3>Level ${currentLevel} Complete!</h3><p class="small">Score: ${score}</p><div style="margin-top:10px"><button onclick="hideModal(); startGame(currentLevel + 1);" class="big-cta">Next Level</button></div>`);
+    } else {
+        resumeGame();
+    }
+}
+
+// --- HELPERS ---
+function spawnDrones(){
+  drones = [];
+  const L = LEVELS[(currentLevel - 1) % LEVELS.length];
+  for(let i=0;i<CONFIG.dronesPerLevel;i++){
+    const plat = L.platforms[1 + (i % (L.platforms.length-1))];
+    const baseX = plat.x + plat.w/2 + (i%2===0?60:-60);
+    const baseY = plat.y - 18;
+    drones.push({x:baseX, y:baseY, baseX, wobble:Math.random()*Math.PI*2, range:80+Math.random()*40, alive:true});
+  }
+}
+
+function onDroneDestroyed(d){
+  score += CONFIG.droneScore;
+  updateHUD();
+  spawnParticles(d.x, d.y, 12);
+  playStaticPop();
+}
+
+function startLevelTimer(){
+  clearInterval(levelTimer);
+  levelTimer = setInterval(() => {
+    if (!running) return;
+    levelTime -= 1;
+    updateHUD();
+    if (levelTime <= 0) {
+      loseLife();
+    }
+  }, 1000);
+}
+
+function resumeGame(){
+  if(modal.style.display === 'none'){
+    running = true;
+    startLevelTimer();
+    lastTime = performance.now();
+    requestAnimationFrame(loop);
+  }
+}
+
+function roundRect(ctx,x,y,w,h,r,fill,stroke){ ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();if(fill)ctx.fill();if(stroke)ctx.stroke();}
+function ensureAudio(){ if(!audioEnabled) return null; if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+function playBeep(duration, freq=880){ if(!audioEnabled) return; const ctx=ensureAudio(); const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='square';osc.frequency.value=freq;gain.gain.value=0.0001;osc.connect(gain);gain.connect(ctx.destination);const t0=ctx.currentTime;gain.gain.exponentialRampToValueAtTime(0.1,t0+0.002);osc.start(t0);gain.gain.exponentialRampToValueAtTime(0.0001,t0+duration);osc.stop(t0+duration+0.01); }
+function playStatic(){ if(!audioEnabled) return; const ctx=ensureAudio();const bufferSize=2*ctx.sampleRate,buffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*0.5;const source=ctx.createBufferSource();source.buffer=buffer;const gain=ctx.createGain();gain.gain.value=0.12;source.connect(gain);gain.connect(ctx.destination);source.start();setTimeout(()=>{try{source.stop();}catch(e){}},160);}
+function playStaticPop(){ if(!audioEnabled) return; const ctx=ensureAudio();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=1200;g.gain.value=0.0001;o.connect(g);g.connect(ctx.destination);const t0=ctx.currentTime;g.gain.exponentialRampToValueAtTime(0.12,t0+0.002);o.start(t0);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.06);o.stop(t0+0.07);}
+
+// --- EVENT LISTENERS ---
+window.addEventListener('keydown',(e)=>{ keys[e.key]=true; if(["ArrowUp"," ","ArrowLeft","ArrowRight"].includes(e.key)) e.preventDefault(); if((e.key==='f' || e.key==='F' || e.key==='Shift') && running) shootPulse(); });
+window.addEventListener('keyup',(e)=>{ keys[e.key]=false; });
+document.getElementById('muteBtn').onclick = () => { audioEnabled=!audioEnabled; document.getElementById('muteBtn').textContent = audioEnabled ? '🔊 Toggle Sound' : '🔈 Sound Off'; };
+document.addEventListener('visibilitychange',()=>{ if(document.hidden && running) { running=false; clearInterval(levelTimer); } });
+
+// --- INITIALIZE ---
+init();
+
+</script>
+</body>
+</html>

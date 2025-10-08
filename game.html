@@ -1,770 +1,559 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COM216 Website Development Process</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-    <style>
-        :root {
-          --font-heading: 'Inter', sans-serif;
-          --font-body: 'Inter', sans-serif;
-          --color-background: #0F172A;
-          --color-text-light: #E2E8F0;
-          --color-text-dark: #94A3B8;
-          --color-accent-primary: #22D3EE;
-          --color-accent-secondary: #67E8F9;
-          --color-card-dark: rgba(30, 41, 59, 0.6);
-        }
-        *{box-sizing:border-box}
-        html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: var(--font-body); background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); color: var(--color-text-light); line-height: 1.7; display: flex; }
-        .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
-        .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-        .sidebar nav { display: flex; flex-direction: column; }
-        .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-        .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-        .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-        .main-content { margin-left: 240px; width: calc(100% - 240px); padding: 40px 20px; }
-        header { text-align: center; padding-bottom: 24px; border-bottom: 1px solid rgba(148,163,184,0.12); margin-bottom: 28px; }
-        header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 2.8rem); color: white; margin: 0 0 6px 0; }
-        header p { color: var(--color-text-dark); font-size: 1rem; margin:0; max-width: 800px; margin-left: auto; margin-right: auto;}
-        .wrap{max-width:1100px;margin:0 auto;}
-        h2{color:var(--color-accent-primary);font-size:1.6rem;margin:40px 0 12px;border-top: 1px solid rgba(148,163,184,0.1); padding-top: 24px;}
-        h3{color:white;margin:18px 0 8px}
-        p,li{color:var(--color-text-dark);font-size:1rem}
-        .phase{background:rgba(30, 41, 59, 0.3);border:1px solid rgba(148, 163, 184, 0.1);padding:18px;border-radius:12px;margin-bottom:18px}
-        .prompt{background:rgba(34,211,238,0.04);border-left:3px solid var(--color-accent-primary);padding:12px;border-radius:8px; margin-bottom: 8px;}
-        .comment{color:var(--color-text-dark);font-style:italic;margin-top:0px}
-        details { background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(148, 163, 184, 0.1); border-radius: 12px; margin-bottom: 16px; transition: background-color 0.2s; }
-        details[open] { background-color: rgba(30, 41, 59, 0.5); }
-        summary { padding: 16px; cursor: pointer; font-weight: 600; color: white; list-style-type: '▸ '; }
-        details[open] > summary { list-style-type: '▾ '; }
-        .code-block { position: relative; margin-top: 16px; padding: 0 16px 16px 16px; }
-        pre{background: #0a101f;color:#E2E8F0;padding:14px;border-radius:8px;overflow:auto;border:1px solid rgba(148,163,184,0.18);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;font-size:0.86rem}
-        .copy-btn { position: absolute; top: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.1); color: var(--color-text-light); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 5px; padding: 4px 8px; cursor: pointer; font-size: 0.8em; transition: background-color 0.2s, color 0.2s; }
-        .copy-btn:hover { background-color: var(--color-accent-primary); color: var(--color-background); }
-    </style>
-</head>
-<body>
-
-<aside class="sidebar">
-    <h2>The Story of Information</h2>
-    <nav>
-        <a href="index.html">Introduction</a>
-        <a href="chapter3.html">Timeline & Quiz</a>
-        <a href="machines.html">Machines</a>
-        <a href="mind.html">The Mind</a>
-        <a href="game.html">Game</a>
-        <a href="conclusion.html">Conclusion</a>
-        <a href="process.html" class="active">Our Process</a>
-    </nav>
-</aside>
-
-<div class="main-content">
-    <header>
-        <h1>Our Development Process</h1>
-        <p>This page provides a comprehensive, step-by-step guide to how this website was created. It documents our collaborative process, clarifying the user's vision (Hayden's input) and the AI's technical implementation, complete with annotated code that you can copy and repurpose for your own projects.</p>
-    </header>
-
-    <main class="wrap">
-        <section id="phases">
-            <h2>Phases of Development</h2>
-
-            <div class="phase">
-                <h3>Phase 1: Foundation & Merging</h3>
-                <div class="prompt"><strong>Hayden's Goal:</strong> "Merge this and this into one code."</div>
-                <p class="comment">Our process began with two distinct HTML files provided by Hayden: a narrative page and a functional Telegraph Simulator. The first task was to merge them into a single, cohesive file. This required carefully integrating the CSS and JavaScript from both files, scoping styles to prevent conflicts, and ensuring all interactive elements remained functional within one document. This established the project's foundation as a single-page experience.</p>
-            </div>
-
-            <div class="phase">
-                <h3>Phase 2: Polishing and Modernization</h3>
-                <div class="prompt"><strong>Hayden's Goal:</strong> "Let's polish this... make the color, design, and font more modern, but keep everything I did original."</div>
-                <p class="comment">With the core content merged, the next step was to elevate the visual design. We transitioned from a standard light theme to a sleek, dark-mode aesthetic. This involved creating a new color palette, updating the typography to a modern sans-serif font (Inter), and adding subtle interactive effects. A key challenge was preserving the unique, vintage feel of the Telegraph Simulator while ensuring the rest of the site felt contemporary and cohesive.</p>
-            </div>
-
-            <div class="phase">
-                <h3>Phase 3: Content Expansion & Organization</h3>
-                <div class="prompt"><strong>Hayden's Goal:</strong> "Can we add more class information... and make sure everything is in order by chapter please."</div>
-                <p class="comment">Hayden provided new content based on class materials, including a summary of Chapter 4 on Charles Babbage. We integrated this new information and reorganized all sections to follow the chronological order of the source material, creating a more logical and historically accurate flow for the user to follow.</p>
-            </div>
-
-            <div class="phase">
-                <h3>Phase 4: Architectural Overhaul (Multi-Page Site)</h3>
-                <div class="prompt"><strong>Hayden's Goal:</strong> "I would like to set up my website... not just using one huge HTML but each page have their own different one that can be navigated."</div>
-                <p class="comment">This was a crucial architectural decision. A single-page site was becoming too large and unwieldy. We converted the project into a traditional multi-page website by creating separate, interlinked HTML files for each section. This makes the project more scalable, easier to manage, and aligns with standard web development practices for hosting on platforms like GitHub Pages.</p>
-            </div>
-            
-            <div class="phase">
-                <h3>Phase 5: Layout Improvement & Game Development</h3>
-                <div class="prompt"><strong>Hayden's Goal:</strong> "what if we changed the page layout to something better... can we make a game like an actual game that I can put into my webrowser"</div>
-                <p class="comment">The final structural change was to implement a persistent sidebar navigation layout. In the same phase, Hayden had the creative vision to expand the project beyond a static narrative and into a fully interactive experience by requesting a platformer game. We developed "Telegraph Runner," a complete, single-file browser game that ties directly into the project's theme.</p>
-            </div>
-        </section>
-
-        <section id="github-guide">
-            <h2>GitHub Deployment Guide</h2>
-            <p>Hayden created and managed the GitHub repository to publish this project online. Here are the exact steps taken:</p>
-            <ol>
-                <li><strong>Create a Repository:</strong> A new public repository was created on GitHub, named `COM216`.</li>
-                <li><strong>Upload Files:</strong> All seven HTML files were uploaded to the main branch of the repository.</li>
-                <li><strong>Enable GitHub Pages:</strong> In the repository's **Settings**, under the **Pages** section, the source was set to "Deploy from a branch."</li>
-                <li><strong>Configure and Deploy:</strong> The branch was set to `main` and the folder to `/ (root)`. After saving, GitHub Pages automatically built and deployed the site.</li>
-            </ol>
-        </section>
-
-        <section id="code-assets">
-            <h2>Reusable Code & Full Page Source</h2>
-            <p>The code for the key interactive components and each individual page is provided below. Click on any section to expand it and view the code. You can use the "Copy Code" button to copy the entire contents of a file to your clipboard.</p>
-
-            <details>
-                <summary><h3>Morse Code Simulator (JavaScript)</h3></summary>
-                <p class="comment">This standalone JavaScript block contains all the logic for the Telegraph Simulator. It can be dropped into any HTML file that has elements with the corresponding IDs.</p>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>
-document.addEventListener('DOMContentLoaded', () => {
-    const morseCode = { "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----." };
-    const simInput = document.getElementById("message-input");
-    const simOutput = document.getElementById("paper-tape");
-    const playBtn = document.getElementById("play-sound");
-    const clearBtn = document.getElementById("clear");
-
-    function encodeToMorse(text) { return text.toUpperCase().split("").map(ch => morseCode[ch] || (ch === " " ? "/" : ch)).join(" "); }
-    function decodeMorse(morse) { const reverse = Object.entries(morseCode).reduce((acc,[k,v]) => (acc[v]=k,acc),{}); return morse.trim().split(" ").map(symbol => (symbol === "/" ? " " : reverse[symbol] || "?")).join(""); }
-
-    if(simInput && simOutput) simInput.addEventListener("input", () => { simOutput.textContent = encodeToMorse(simInput.value); });
-    
-    if(playBtn && simOutput) playBtn.addEventListener("click", () => {
-      const morse = simOutput.textContent.trim();
-      if (!morse) return;
-      let i = 0;
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const unit = 0.15;
-      function playTone(duration) { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); osc.frequency.value = 600; osc.start(); osc.stop(ctx.currentTime + duration); }
-      function playNext() {
-        if (i >= morse.length) return;
-        const char = morse[i++];
-        if (char === ".") { playTone(unit); setTimeout(playNext, unit * 1000 * 2); }
-        else if (char === "-") { playTone(unit * 3); setTimeout(playNext, unit * 1000 * 4); }
-        else if (char === " ") { setTimeout(playNext, unit * 1000 * 2); }
-        else if (char === "/") { setTimeout(playNext, unit * 1000 * 6); }
-        else { playNext(); }
-      }
-      playNext();
-    });
-
-    if(clearBtn && simInput && simOutput) clearBtn.addEventListener("click", () => { simInput.value = ""; simOutput.textContent = ""; });
-    
-    const decodeBtn = document.getElementById("decode-btn");
-    if(decodeBtn) decodeBtn.addEventListener("click", () => { document.getElementById("decode-output").textContent = decodeMorse(document.getElementById("decode-input").value); });
-    
-    const words = ["HELLO", "WORLD", "MORSE", "CODE", "TELEGRAPH", "MESSAGE"];
-    const newGameBtn = document.getElementById("new-game");
-    if(newGameBtn) newGameBtn.addEventListener("click", () => { const randomWord = words[Math.floor(Math.random() * words.length)]; const challengeEl = document.getElementById("morse-challenge"); challengeEl.textContent = encodeToMorse(randomWord); challengeEl.dataset.answer = randomWord; document.getElementById("game-answer").value = ""; document.getElementById("game-feedback").textContent = ""; });
-
-    const checkAnswerBtn = document.getElementById("check-answer");
-    if(checkAnswerBtn) checkAnswerBtn.addEventListener("click", () => { const challenge = document.getElementById("morse-challenge"); const feedback = document.getElementById("game-feedback"); if (!challenge.dataset.answer) { feedback.textContent = "Start a game first!"; return; } if (document.getElementById("game-answer").value.toUpperCase().trim() === challenge.dataset.answer) { feedback.textContent = "✅ Correct! The word was " + challenge.dataset.answer; feedback.style.color = "#34D399"; } else { feedback.textContent = "❌ Try again!"; feedback.style.color = "#F87171"; } });
-    
-    const chart = document.getElementById("morse-chart");
-    if(chart) Object.entries(morseCode).forEach(([letter, code]) => { const cell = document.createElement("div"); cell.className = "chart-cell"; cell.innerHTML = `&lt;div&gt;&lt;strong&gt;${letter}&lt;/strong&gt;&lt;/div&gt;&lt;div class="chart-symbol"&gt;${code}&lt;/div&gt;`; chart.appendChild(cell); });
-});
-                    </code></pre>
-                </div>
-            </details>
-            
-            <details>
-                <summary><h3>Full Page Code: `index.html`</h3></summary>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8" /&gt;
-&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-&lt;title&gt;The Story of Information | Introduction&lt;/title&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-    :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
-    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; left: 0; top: 0; }
-    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-    .sidebar nav { display: flex; flex-direction: column; }
-    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-    .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; }
-    main { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .header-page { width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); position: relative; }
-    .header-page::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, #1E3A8A, #06B6D4); z-index: -1; }
-    .header-page .subtitle { max-width: 600px; font-size: 1.25rem; color: var(--color-text-light); }
-    h1 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); margin-bottom: 1rem; }
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;aside class="sidebar"&gt;
-    &lt;h2&gt;The Story of Information&lt;/h2&gt;
-    &lt;nav&gt;
-        &lt;a href="index.html" class="active"&gt;Introduction&lt;/a&gt;
-        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
-        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
-        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
-        &lt;a href="game.html"&gt;Game&lt;/a&gt;
-        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
-        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/aside&gt;
-
-&lt;div class="main-content"&gt;
-    &lt;main&gt;
-        &lt;div class="header-page"&gt;
-          &lt;h1&gt;The Story of Information&lt;/h1&gt;
-          &lt;p class="subtitle"&gt;An exploration of how humanity has encoded, manipulated, and transmitted knowledge through the ages.&lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-    &lt;footer class="footer"&gt;
-        &lt;small&gt;An interactive narrative inspired by James Gleick's &lt;em&gt;The Information&lt;/em&gt;. Designed and developed as a class project.&lt;/small&gt;
-    &lt;/footer&gt;
-&lt;/div&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-            </details>
-            
-            <details>
-                <summary><h3>Full Page Code: `chapter3.html`</h3></summary>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8" /&gt;
-&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-&lt;title&gt;The Story of Information | Timeline & Quiz&lt;/title&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-    :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
-    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
-    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-    .sidebar nav { display: flex; flex-direction: column; }
-    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-    .main-content { margin-left: 240px; width: calc(100% - 240px); padding: 40px 20px; text-align: center; }
-    .container { max-width: 1100px; width: 100%; margin: 0 auto 50px auto; }
-    h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
-    p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
-    .timeline{display:flex;gap:20px;align-items:stretch;justify-content:center;margin:30px 0;flex-wrap:wrap;}
-    .timeline-item{ flex-basis: 220px; background: var(--color-card-dark); backdrop-filter: blur(10px); border-radius:15px; padding:20px; cursor:pointer; box-shadow:0 5px 20px var(--shadow-color); border:1px solid rgba(148, 163, 184, 0.2); transition:transform .2s,box-shadow .2s, border-color .2s; color: var(--color-text-light); }
-    .timeline-item:hover{ transform:translateY(-8px) scale(1.05); box-shadow:0 0 25px rgba(34, 211, 238, 0.3); border-color: var(--color-accent-primary); }
-    .timeline-item .icon{ font-size:2.5rem; margin-bottom:12px; display: inline-block; }
-    .popup-overlay{position:fixed;inset:0;background:rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); z-index:99;animation:fadeIn 0.4s ease}
-    .popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:640px;width:90%;background:#1E293B; color: var(--color-text-light); padding:24px;border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,0.5);z-index:100;animation: fadeInPopup 0.4s ease; border: 1px solid rgba(148, 163, 184, 0.3);}
-    .hidden{display:none}
-    .close{position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:1.5rem;cursor:pointer;color:#94A3B8; transition: color 0.2s;}
-    .close:hover{ color: white; }
-    .popup-content h3{font-family: var(--font-heading); margin-top:0; font-size: 1.75rem; color: white;}
-    .popup-content p{color:var(--color-text-dark);} @keyframes fadeIn {from{opacity:0;} to{opacity:1;}} @keyframes fadeInPopup {from{opacity:0;transform:translate(-50%,-46%);}to{opacity:1;transform:translate(-50%,-50%);}}
-    .quiz-challenge { padding:40px 20px; background: rgba(30, 41, 59, 0.7); border-radius:15px; border:1px solid rgba(148, 163, 184, 0.2); margin: 50px auto 0 auto; max-width: 1100px; }
-    .quiz-question p { color: var(--color-text-light); }
-    .quiz-choice { margin:6px 6px 6px 0; padding:8px 12px; border-radius:8px; border:1px solid rgba(148, 163, 184, 0.3); background:transparent; color: var(--color-text-light); cursor:pointer; transition:transform .12s, box-shadow .12s, background-color .12s; }
-    .quiz-choice:hover { transform:translateY(-3px); background-color: rgba(34, 211, 238, 0.1); border-color: var(--color-accent-primary); }
-    .quiz-feedback.correct { color: #34D399; } .quiz-feedback.incorrect { color: #F87171; }
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); margin-top: 50px; }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;aside class="sidebar"&gt;
-    &lt;h2&gt;The Story of Information&lt;/h2&gt;
-    &lt;nav&gt;
-        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
-        &lt;a href="chapter3.html" class="active"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
-        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
-        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
-        &lt;a href="game.html"&gt;Game&lt;/a&gt;
-        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
-        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/aside&gt;
-
-&lt;div class="main-content"&gt;
-    &lt;main&gt;
-        &lt;div class="container"&gt;
-            &lt;h2&gt;An Interactive Timeline of Order&lt;/h2&gt;
-            &lt;p&gt;From simple lists to calculating engines, humanity has always sought to structure and process information.&lt;/p&gt;
-            &lt;div class="timeline" id="timeline-container"&gt;
-              &lt;div class="timeline-item" data-id="cawdrey"&gt;&lt;div class="icon"&gt;📜&lt;/div&gt;&lt;div class="title"&gt;1604 — Cawdrey's &lt;em&gt;Table Alphabeticall&lt;/em&gt;&lt;/div&gt;&lt;/div&gt;
-              &lt;div class="timeline-item" data-id="johnson"&gt;&lt;div class="icon"&gt;📖&lt;/div&gt;&lt;div class="title"&gt;1755 — Johnson's Dictionary&lt;/div&gt;&lt;/div&gt;
-              &lt;div class="timeline-item" data-id="babbage"&gt;&lt;div class="icon"&gt;⚙️&lt;/div&gt;&lt;div class="title"&gt;1822 — Babbage's Engine&lt;/div&gt;&lt;/div&gt;
-              &lt;div class="timeline-item" data-id="oed"&gt;&lt;div class="icon"&gt;📚&lt;/div&gt;&lt;div class="title"&gt;1857 — Oxford English Dictionary&lt;/div&gt;&lt;/div&gt;
-              &lt;div class="timeline-item" data-id="digital"&gt;&lt;div class="icon"&gt;📱&lt;/div&gt;&lt;div class="title"&gt;The Digital Revolution&lt;/div&gt;&lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="quiz-challenge" aria-labelledby="quiz-title"&gt;
-          &lt;h2 id="quiz-title"&gt;Chapter 3 Quiz Challenge&lt;/h2&gt;
-          &lt;p&gt;Test your knowledge of &lt;em&gt;Two Wordbooks&lt;/em&gt; — immediate feedback and short explanations will appear after each choice.&lt;/p&gt;
-          &lt;div class="quiz-question" data-correct="B" style="margin-top:12px;padding:10px 0;"&gt;
-            &lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Who created the first English wordbook, &lt;em&gt;Table Alphabeticall&lt;/em&gt; (1604)?&lt;/p&gt;
-            &lt;div class="choices" role="group"&gt;&lt;button class="quiz-choice" data-choice="A" data-explain="Samuel Johnson published his dictionary later in 1755."&gt;A) Samuel Johnson&lt;/button&gt;&lt;button class="quiz-choice" data-choice="B" data-explain="Correct — Robert Cawdrey compiled this early dictionary for 'hard words'."&gt;B) Robert Cawdrey&lt;/button&gt;&lt;button class="quiz-choice" data-choice="C" data-explain="Oxford scholars were involved much later with the OED."&gt;C) Oxford scholars&lt;/button&gt;&lt;/div&gt;
-            &lt;p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"&gt;&lt;/p&gt;
-          &lt;/div&gt;
-          &lt;div class="quiz-question" data-correct="A" style="margin-top:12px;padding:10px 0;"&gt;
-            &lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; Which lexicographer published a landmark English dictionary in 1755?&lt;/p&gt;
-            &lt;div class="choices" role="group"&gt;&lt;button class="quiz-choice" data-choice="A" data-explain="Correct — Samuel Johnson's influential dictionary standardized many spellings."&gt;A) Samuel Johnson&lt;/button&gt;&lt;button class="quiz-choice" data-choice="B" data-explain="Robert Cawdrey authored an earlier, smaller wordbook in 1604."&gt;B) Robert Cawdrey&lt;/button&gt;&lt;button class="quiz-choice" data-choice="C" data-explain="James Murray was the primary editor of the OED much later."&gt;C) James Murray&lt;/button&gt;&lt;/div&gt;
-            &lt;p class="quiz-feedback" aria-live="polite" style="font-weight:bold;margin-top:8px;"&gt;&lt;/p&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-    &lt;footer class="footer"&gt;
-        &lt;small&gt;An interactive narrative inspired by James Gleick's &lt;em&gt;The Information&lt;/em&gt;. Designed and developed as a class project.&lt;/small&gt;
-    &lt;/footer&gt;
-&lt;/div&gt;
-
-&lt;div id="popup-container" class="hidden"&gt;
-    &lt;div id="popup-overlay" class="popup-overlay"&gt;&lt;/div&gt;
-    &lt;div id="popup" class="popup"&gt;
-      &lt;button id="closePopup" class="close"&gt;✕&lt;/button&gt;
-      &lt;div id="popupContent" class="popup-content"&gt;&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-document.addEventListener('DOMContentLoaded', () => {
-    (function(){
-      function handleChoiceClick(e){
-        const btn = e.currentTarget;
-        const qdiv = btn.closest('.quiz-question');
-        if(!qdiv) return;
-        const correct = qdiv.getAttribute('data-correct');
-        const chosen = btn.getAttribute('data-choice');
-        const explanation = btn.getAttribute('data-explain') || '';
-        const feedbackP = qdiv.querySelector('.quiz-feedback');
-        if(!feedbackP) return;
-        if(chosen === correct){
-          feedbackP.textContent = "✅ Correct! " + explanation.replace(/^Correct\s*—\s*/,'').trim();
-          feedbackP.classList.add('correct');
-          btn.style.borderColor = '#34D399';
-          btn.style.backgroundColor = 'rgba(52, 211, 153, 0.1)';
-        } else {
-          feedbackP.textContent = "❌ Not quite. " + explanation;
-          feedbackP.classList.add('incorrect');
-        }
-      }
-      document.querySelectorAll('.quiz-choice').forEach(b => b.addEventListener('click', handleChoiceClick));
-    })();
-
-    const popupContainer = document.getElementById('popup-container');
-    const popupContent = document.getElementById('popupContent');
-    const closePopup = document.getElementById('closePopup');
-    const popupOverlay = document.getElementById('popup-overlay');
-    const clickableItems = document.querySelectorAll('.timeline-item');
-    const popupData = {
-      cawdrey:{title:"1604 — Cawdrey's Table Alphabeticall",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; One of the first English dictionaries... to help people understand 'hard words'.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; A basic tool for **reducing uncertainty**.&lt;/p&gt;"},
-      johnson:{title:"1755 — Johnson's Dictionary",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; A massive scholarly work that standardized English for over 150 years.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; It was a complex **database** that standardized the 'code' of English, filtering noise.&lt;/p&gt;"},
-      babbage:{title:"1822 — Babbage's Difference Engine",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; A mechanical calculator designed to automatically produce error-free mathematical tables.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; It treated numbers as a **commodity** that could be processed and manufactured by a machine, a foundational concept for automatic computation.&lt;/p&gt;"},
-      oed:{title:"1857 — The Oxford English Dictionary",body:"&lt;p&gt;&lt;strong&gt;What it was:&lt;/strong&gt; An ambitious project to document the history of every word in English.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; A historical log file for the English language, tracking words as evolving information through a massive, crowdsourced **data collection** effort.&lt;/p&gt;"},
-      digital:{title:"The Digital Revolution",body:"&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt; Dictionaries moved from print to screens, becoming searchable, linkable, and constantly updated databases.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information Theory:&lt;/strong&gt; The ultimate shift from **atoms** (the physical book) to **bits** (pure information), making information weightless and instant.&lt;/p&gt;"}
-    };
-    function showPopup(id) {
-        const data = popupData[id];
-        if (!data) return;
-        popupContent.innerHTML = `&lt;h3&gt;${data.title}&lt;/h3&gt;${data.body}`;
-        popupContainer.classList.remove('hidden');
-    }
-    function hidePopup() { popupContainer.classList.add('hidden'); }
-    clickableItems.forEach(item => item.addEventListener('click', () => showPopup(item.dataset.id)));
-    closePopup.addEventListener('click', hidePopup);
-    popupOverlay.addEventListener('click', hidePopup);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !popupContainer.classList.contains('hidden')) hidePopup(); });
-});
-&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-            </details>
-
-            <details>
-                <summary><h3>Full Page Code: `machines.html`</h3></summary>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8" /&gt;
-&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-&lt;title&gt;The Story of Information | Machines&lt;/title&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-    :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
-    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
-    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-    .sidebar nav { display: flex; flex-direction: column; }
-    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-    .main-content { margin-left: 240px; width: calc(100% - 240px); }
-    main { padding: 40px 20px; text-align: center; }
-    .container { max-width: 1100px; width: 100%; margin: 0 auto 50px auto; }
-    .section-icon { font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-accent-primary); display: inline-block; }
-    h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
-    p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
-    .telegraph-container-wrapper { width: 100%; font-family: 'Special Elite', monospace; background-color: #3a2d23; background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); color: #f4f0e8; padding: 40px 0; margin-top: 50px;}
-    #telegraph-sim .container { background-color: #5a4635; border: 2px solid #2e2219; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); padding: 30px; width: 95%; max-width: 1000px; margin: 20px auto; text-align: center; }
-    #telegraph-sim #paper-tape { background-color: #fafafa; border: 2px dashed #444; padding: 20px; min-height: 80px; text-align: left; font-size: 1.6em; font-weight: bold; color: #111; letter-spacing: 4px; word-wrap: break-word; white-space: pre-wrap; margin-bottom: 20px; }
-    #telegraph-sim button { font-family: 'Special Elite', monospace; margin: 6px; padding: 10px 18px; font-size: 1em; border-radius: 6px; border: 1px solid #c2a676; background-color: #f2d49b; color: #2e2219; cursor: pointer; transition: 0.2s; }
-    #telegraph-sim button:hover { background-color: #e6c580; }
-    #telegraph-sim textarea, #telegraph-sim input { font-family: 'Special Elite', monospace; width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #8b6f52; border-radius: 5px; font-size: 1.2em; }
-    #telegraph-sim textarea { height: 100px; resize: none; background: #f4f0e8; color: #333; }
-    #telegraph-sim #morse-chart { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin-top: 15px; text-align: center; font-size: 1.1em; }
-    #telegraph-sim .chart-cell { background: #f4f0e8; color: #111; border-radius: 5px; padding: 5px; border: 1px solid #ccc; }
-    #telegraph-sim .chart-symbol { font-weight: bold; color: #4a2; }
-    #telegraph-sim h1, #telegraph-sim h2 { font-family: 'Special Elite', monospace; color: #f2d49b; }
-    #telegraph-sim p { font-family: 'Special Elite', monospace; font-size: 1em; line-height: 1.5; color: #f4f0e8;}
-    .footer { text-align: center; color: var(--color-text-dark); font-size: 0.8rem; padding: 40px 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;aside class="sidebar"&gt;
-    &lt;h2&gt;The Story of Information&lt;/h2&gt;
-    &lt;nav&gt;
-        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
-        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
-        &lt;a href="machines.html" class="active"&gt;Machines (Ch. 4-5)&lt;/a&gt;
-        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
-        &lt;a href="game.html"&gt;Game&lt;/a&gt;
-        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
-        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/aside&gt;
-
-&lt;div class="main-content"&gt;
-    &lt;main&gt;
-        &lt;div class="container babbage-container"&gt;
-            &lt;div class="section-icon"&gt;⚙️&lt;/div&gt;
-            &lt;h2&gt;The First Computer (Ch. 4)&lt;/h2&gt;
-            &lt;p&gt;Long before electronics, Charles Babbage dreamed of a machine to "manufacture" numbers. His &lt;strong&gt;Difference Engine&lt;/strong&gt;, conceived in 1822, was a colossal arrangement of gears and wheels designed to automate the production of mathematical tables.&lt;/p&gt;
-            &lt;p&gt;Though never completed in his lifetime, Babbage's engine represented a bridge from the abstract world of mathematics to the physical world of machinery, treating numbers as a commodity that could be processed and produced. It was the first glimmer of automatic computation.&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div class="telegraph-container-wrapper" id="telegraph-sim"&gt;
-            &lt;div class="container"&gt;
-                &lt;h1&gt;Ultimate Telegraph Simulator (Ch. 5)&lt;/h1&gt;
-                &lt;p&gt;Type a message to encode it, play Morse sounds, or try decoding challenges!&lt;/p&gt;
-                &lt;h2&gt;✍ Encode a Message&lt;/h2&gt;
-                &lt;textarea id="message-input" placeholder="Type here..."&gt;&lt;/textarea&gt;
-                &lt;div id="paper-tape"&gt;&lt;/div&gt;
-                &lt;button id="play-sound"&gt;▶ Play Morse Sound&lt;/button&gt;
-                &lt;button id="clear"&gt;🧹 Clear&lt;/button&gt;
-                &lt;h2&gt;🔎 Decode Morse Code&lt;/h2&gt;
-                &lt;input type="text" id="decode-input" placeholder="Type Morse here (.... . .-.. .-.. ---)"&gt;
-                &lt;button id="decode-btn"&gt;Decode&lt;/button&gt;
-                &lt;p id="decode-output"&gt;&lt;/p&gt;
-                &lt;h2&gt;🎮 Game Mode&lt;/h2&gt;
-                &lt;button id="new-game"&gt;Generate Random Message&lt;/button&gt;
-                &lt;p id="morse-challenge"&gt;&lt;/p&gt;
-                &lt;input type="text" id="game-answer" placeholder="Your translation here"&gt;
-                &lt;button id="check-answer"&gt;Check Answer&lt;/button&gt;
-                &lt;p id="game-feedback"&gt;&lt;/p&gt;
-                &lt;h2&gt;📖 Learn Morse Code&lt;/h2&gt;
-                &lt;p&gt;Quick reference chart for letters & numbers:&lt;/p&gt;
-                &lt;div id="morse-chart"&gt;&lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-    &lt;footer class="footer"&gt;
-        &lt;small&gt;An interactive narrative inspired by James Gleick's &lt;em&gt;The Information&lt;/em&gt;. Designed and developed as a class project.&lt;/small&gt;
-    &lt;/footer&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-document.addEventListener('DOMContentLoaded', () => {
-    const morseCode = { "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----." };
-    const simInput = document.getElementById("message-input");
-    const simOutput = document.getElementById("paper-tape");
-    const playBtn = document.getElementById("play-sound");
-    const clearBtn = document.getElementById("clear");
-    function encodeToMorse(text) { return text.toUpperCase().split("").map(ch => morseCode[ch] || (ch === " " ? "/" : ch)).join(" "); }
-    function decodeMorse(morse) { const reverse = Object.entries(morseCode).reduce((acc,[k,v]) => (acc[v]=k,acc),{}); return morse.trim().split(" ").map(symbol => (symbol === "/" ? " " : reverse[symbol] || "?")).join(""); }
-    if(simInput && simOutput) simInput.addEventListener("input", () => { simOutput.textContent = encodeToMorse(simInput.value); });
-    if(playBtn && simOutput) playBtn.addEventListener("click", () => {
-      const morse = simOutput.textContent.trim();
-      if (!morse) return;
-      let i = 0;
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const unit = 0.15;
-      function playTone(duration) { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); osc.frequency.value = 600; osc.start(); osc.stop(ctx.currentTime + duration); }
-      function playNext() {
-        if (i >= morse.length) return;
-        const char = morse[i++];
-        if (char === ".") { playTone(unit); setTimeout(playNext, unit * 1000 * 2); }
-        else if (char === "-") { playTone(unit * 3); setTimeout(playNext, unit * 1000 * 4); }
-        else if (char === " ") { setTimeout(playNext, unit * 1000 * 2); }
-        else if (char === "/") { setTimeout(playNext, unit * 1000 * 6); }
-        else { playNext(); }
-      }
-      playNext();
-    });
-    if(clearBtn && simInput && simOutput) clearBtn.addEventListener("click", () => { simInput.value = ""; simOutput.textContent = ""; });
-    const decodeBtn = document.getElementById("decode-btn");
-    if(decodeBtn) decodeBtn.addEventListener("click", () => { document.getElementById("decode-output").textContent = decodeMorse(document.getElementById("decode-input").value); });
-    const words = ["HELLO", "WORLD", "MORSE", "CODE", "TELEGRAPH", "MESSAGE"];
-    const newGameBtn = document.getElementById("new-game");
-    if(newGameBtn) newGameBtn.addEventListener("click", () => { const randomWord = words[Math.floor(Math.random() * words.length)]; const challengeEl = document.getElementById("morse-challenge"); challengeEl.textContent = encodeToMorse(randomWord); challengeEl.dataset.answer = randomWord; document.getElementById("game-answer").value = ""; document.getElementById("game-feedback").textContent = ""; });
-    const checkAnswerBtn = document.getElementById("check-answer");
-    if(checkAnswerBtn) checkAnswerBtn.addEventListener("click", () => { const challenge = document.getElementById("morse-challenge"); const feedback = document.getElementById("game-feedback"); if (!challenge.dataset.answer) { feedback.textContent = "Start a game first!"; return; } if (document.getElementById("game-answer").value.toUpperCase().trim() === challenge.dataset.answer) { feedback.textContent = "✅ Correct! The word was " + challenge.dataset.answer; feedback.style.color = "#34D399"; } else { feedback.textContent = "❌ Try again!"; feedback.style.color = "#F87171"; } });
-    const chart = document.getElementById("morse-chart");
-    if(chart) Object.entries(morseCode).forEach(([letter, code]) => { const cell = document.createElement("div"); cell.className = "chart-cell"; cell.innerHTML = `&lt;div&gt;&lt;strong&gt;${letter}&lt;/strong&gt;&lt;/div&gt;&lt;div class="chart-symbol"&gt;${code}&lt;/div&gt;`; chart.appendChild(cell); });
-});
-&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-            </details>
-            
-            <details>
-                <summary><h3>Full Page Code: `mind.html`</h3></summary>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8" /&gt;
-&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-&lt;title&gt;The Story of Information | The Mind&lt;/title&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-    :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
-    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
-    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-    .sidebar nav { display: flex; flex-direction: column; }
-    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-    .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
-    .container { max-width: 1100px; width: 100%; }
-    .section-icon { font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-accent-primary); display: inline-block; animation: float 3s ease-in-out infinite; }
-    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-    h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
-    p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;aside class="sidebar"&gt;
-    &lt;h2&gt;The Story of Information&lt;/h2&gt;
-    &lt;nav&gt;
-        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
-        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
-        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
-        &lt;a href="mind.html" class="active"&gt;The Mind&lt;/a&gt;
-        &lt;a href="game.html"&gt;Game&lt;/a&gt;
-        &lt;a href="conclusion.html"&gt;Conclusion&lt;/a&gt;
-        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/aside&gt;
-
-&lt;div class="main-content"&gt;
-    &lt;main&gt;
-        &lt;div class="container"&gt;
-            &lt;div class="section-icon"&gt;🧠&lt;/div&gt;
-            &lt;h2&gt;Information & The Mind&lt;/h2&gt;
-            &lt;p&gt;Information theory is more than just a concept for computers and telegraphs; it's a fundamental lens through which we can understand our own minds. Cognitive psychology often describes the brain as the ultimate information processor.&lt;/p&gt;
-            &lt;p&gt;Just as a telegraph &lt;strong&gt;encodes&lt;/strong&gt; a message into dots and dashes, our brains encode sensory experiences into neural signals. These signals are &lt;strong&gt;stored&lt;/strong&gt; as memories and can be &lt;strong&gt;retrieved&lt;/strong&gt; later. Language itself is a sophisticated code, allowing us to compress and transmit incredibly complex ideas.&lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-&lt;/div&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-            </details>
-            
-            <details>
-                <summary><h3>Full Page Code: `game.html`</h3></summary>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8" /&gt;
-&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-&lt;title&gt;Telegraph Runner — Platformer&lt;/title&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-  :root{ --bg:#071026; --panel:#0b2a3a; --accent:#22d3ee; --muted:#9fb0c1; --good:#34d399; --bad:#f87171; }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Telegraph Runner — Platformer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#041026; --panel:#07293a; --accent:#22d3ee; --muted:#9fb0c1; --good:#34d399; --bad:#f87171; --ui-bg: rgba(255,255,255,0.03);}
+  *{box-sizing:border-box}
   html,body{height:100%;margin:0;background:linear-gradient(180deg,#04101a,#071026);font-family:Inter, Arial, sans-serif;color:#e6f6fb}
-  .wrap{max-width:1100px;margin:18px auto;padding:12px}
+  .wrap{max-width:1100px;margin:12px auto;padding:12px}
   header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 10px}
   h1{font-family:'Press Start 2P',monospace;font-size:18px;margin:0;color:var(--accent)}
-  .hud{display:flex;gap:10px;align-items:center;font-weight:700}
-  .hud .pill{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-  #gameCanvas{display:block;margin:10px auto;border-radius:8px; background: linear-gradient(180deg,#092233,#071026); box-shadow:0 14px 40px rgba(0,0,0,0.6)}
-  .controls{max-width:1100px;margin:10px auto;color:var(--muted);font-size:0.9rem}
-  .buttons{display:flex;gap:8px;margin-top:8px}
-  button,a.button{background:var(--accent);color:#071026;border:0;padding:8px 10px;border-radius:8px;font-weight:700;text-decoration:none;cursor:pointer}
-  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#0b2633;border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:10px;color:#e6f6fb;min-width:300px;z-index:100}
-  .overlay{position:fixed;inset:0;background:rgba(2,6,14,0.6);backdrop-filter:blur(2px);z-index:90}
-  .codebox{background:#041826;padding:12px;border-radius:8px;font-family:monospace;color:#bfefff;overflow:auto}
+  .hud{display:flex;gap:10px;align-items:center;font-weight:700;flex-wrap:wrap}
+  .pill{background:var(--ui-bg);padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-size:0.86rem}
+  #gameCanvas{display:block;margin:12px auto;border-radius:8px;background:linear-gradient(180deg,#092233,#071026);box-shadow:0 14px 40px rgba(0,0,0,0.6);max-width:100%}
+  .controls{max-width:1100px;margin:10px auto;color:var(--muted);font-size:0.95rem;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .btn {background:var(--accent);color:#071026;border:0;padding:8px 10px;border-radius:8px;font-weight:700;text-decoration:none;cursor:pointer}
   .small{font-size:0.9rem;color:var(--muted)}
-  footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.9rem;text-align:center}
-  .station-connected{color:var(--good);font-weight:800}
-  .station-wait{color:var(--accent);font-weight:700}
-  .footer-links{margin-top:8px}
+  footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.85rem;text-align:center}
+  /* Mobile controller */
+  .mobile-controls{display:flex;gap:8px;justify-content:center;margin-top:8px;touch-action:none}
+  .control-btn{background:rgba(255,255,255,0.04);color:#e6f6fb;border:1px solid rgba(255,255,255,0.05);padding:12px;border-radius:10px;min-width:60px;text-align:center;font-weight:800;user-select:none}
+  .control-btn:active{transform:translateY(2px)}
+  .overlay{position:fixed;inset:0;background:rgba(2,6,14,0.6);backdrop-filter:blur(2px);z-index:90;display:none}
+  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#0b2633;border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:10px;color:#e6f6fb;min-width:260px;z-index:100;display:none}
   @media (max-width:640px){
-    canvas{width:100%}
+    .hud{justify-content:center}
+    .mobile-controls{display:flex}
   }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;div class="wrap"&gt;
-    &lt;header&gt;
-      &lt;h1&gt;Telegraph Runner&lt;/h1&gt;
-      &lt;div class="hud"&gt;
-        &lt;div class="pill"&gt;Level: &lt;span id="hud-level"&gt;1&lt;/span&gt;&lt;/div&gt;
-        &lt;div class="pill"&gt;Score: &lt;span id="hud-score"&gt;0&lt;/span&gt;&lt;/div&gt;
-        &lt;div class="pill"&gt;Lives: &lt;span id="hud-lives"&gt;3&lt;/span&gt;&lt;/div&gt;
-        &lt;div class="pill"&gt;Stations: &lt;span id="hud-stations"&gt;0/0&lt;/span&gt;&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/header&gt;
+  @media (min-width:641px){
+    .mobile-controls{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Telegraph Runner</h1>
+      <div class="hud" aria-hidden="false">
+        <div class="pill">Level: <span id="hud-level">1</span></div>
+        <div class="pill">Score: <span id="hud-score">0</span></div>
+        <div class="pill">Lives: <span id="hud-lives">3</span></div>
+        <div class="pill">Stations: <span id="hud-stations">0/0</span></div>
+      </div>
+    </header>
 
-    &lt;canvas id="gameCanvas" width="1000" height="560" aria-label="Telegraph Runner Game"&gt;&lt;/canvas&gt;
+    <canvas id="gameCanvas" width="1000" height="560" aria-label="Telegraph Runner Game"></canvas>
 
-    &lt;div class="controls"&gt;
-      &lt;div class="small"&gt;Controls: ← → to move, ↑ / Space to jump. Reach telegraph stations and solve the Morse mini-puzzle to connect them. Connect all stations to advance. You have limited lives — falling below the canvas or running out of time costs a life.&lt;/div&gt;
-      &lt;div class="buttons" style="margin-top:8px"&gt;
-        &lt;button id="startBtn"&gt;Start / Restart&lt;/button&gt;
-        &lt;button id="muteBtn"&gt;🔊 Toggle Sound&lt;/button&gt;
-        &lt;a class="button" id="backBtn" href="index.html"&gt;↩ Back to Project&lt;/a&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    <div class="controls">
+      <div class="small">Controls: ← → to move, ↑ / Space to jump, Z/X or on-screen Shoot. Connect all stations to win the level.</div>
+      <div style="display:flex;gap:8px">
+        <button id="startBtn" class="btn">Start / Restart</button>
+        <button id="muteBtn" class="btn">🔊 Sound</button>
+        <a class="btn" href="index.html">↩ Back</a>
+      </div>
+    </div>
 
-    &lt;div style="height:18px"&gt;&lt;/div&gt;
-    &lt;footer&gt;Made for COM216 — Hayden Klahs · &lt;span id="highscoreText"&gt;High Score: 0&lt;/span&gt;&lt;/footer&gt;
-  &lt;/div&gt;
+    <div class="mobile-controls" role="toolbar" aria-label="Mobile controls">
+      <div class="control-btn" id="leftBtn">◀</div>
+      <div class="control-btn" id="rightBtn">▶</div>
+      <div class="control-btn" id="jumpBtn">⤒</div>
+      <div class="control-btn" id="shootBtn">●</div>
+    </div>
 
-  &lt;div id="overlay" class="overlay" style="display:none"&gt;&lt;/div&gt;
-  &lt;div id="modal" class="modal" style="display:none" role="dialog" aria-modal="true"&gt;&lt;/div&gt;
+    <div style="height:12px"></div>
+    <footer>Made for COM216 — Hayden Klahs · <span id="highscoreText">High Score: 0</span></footer>
+  </div>
 
-&lt;script&gt;
-// Full Game Script...
-&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-            </details>
-
-            <details>
-                <summary><h3>Full Page Code: `conclusion.html`</h3></summary>
-                <div class="code-block">
-                    <button class="copy-btn">Copy Code</button>
-                    <pre><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8" /&gt;
-&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
-&lt;title&gt;The Story of Information | Conclusion&lt;/title&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
-    :root { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; --color-background: #0F172A; --color-text-light: #E2E8F0; --color-text-dark: #94A3B8; --color-accent-primary: #22D3EE; --color-accent-secondary: #67E8F9; --color-card-dark: rgba(30, 41, 59, 0.5); --shadow-color: rgba(0, 0, 0, 0.3); }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); margin: 0; color: var(--color-text-light); background-color: var(--color-background); background-image: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); display: flex; }
-    .sidebar { width: 240px; background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(148, 163, 184, 0.2); padding: 20px; height: 100vh; position: fixed; }
-    .sidebar h2 { color: white; font-size: 1.2rem; margin: 0 0 20px 0; text-align: center; }
-    .sidebar nav { display: flex; flex-direction: column; }
-    .sidebar nav a { color: var(--color-text-dark); text-decoration: none; padding: 12px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; transition: color 0.2s, background-color 0.2s; }
-    .sidebar nav a:hover { color: white; background-color: var(--color-card-dark); }
-    .sidebar nav a.active { color: var(--color-accent-primary); background-color: rgba(34, 211, 238, 0.1); }
-    .main-content { margin-left: 240px; width: calc(100% - 240px); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
-    .container { max-width: 1100px; width: 100%; }
-    h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; color: white; }
-    p { line-height: 1.7; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-dark); }
-    p a { color: var(--color-accent-primary); font-weight: 600; text-decoration: none; }
-    p a:hover { text-decoration: underline; color: var(--color-accent-secondary); }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;aside class="sidebar"&gt;
-    &lt;h2&gt;The Story of Information&lt;/h2&gt;
-    &lt;nav&gt;
-        &lt;a href="index.html"&gt;Introduction&lt;/a&gt;
-        &lt;a href="chapter3.html"&gt;Timeline & Quiz (Ch. 3)&lt;/a&gt;
-        &lt;a href="machines.html"&gt;Machines (Ch. 4-5)&lt;/a&gt;
-        &lt;a href="mind.html"&gt;The Mind&lt;/a&gt;
-        &lt;a href="game.html"&gt;Game&lt;/a&gt;
-        &lt;a href="conclusion.html" class="active"&gt;Conclusion&lt;/a&gt;
-        &lt;a href="process.html"&gt;Our Process&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/aside&gt;
-
-&lt;div class="main-content"&gt;
-    &lt;main&gt;
-        &lt;div class="container"&gt;
-            &lt;h2&gt;The Unending Story&lt;/h2&gt;
-            &lt;p&gt;From clay tablets to cloud servers, the quest to structure information is a fundamental part of human history. The dictionary is more than a book; it's a testament to our enduring need to create order from chaos, a story that continues to evolve with every new technology and every new word.&lt;/p&gt;
-            &lt;p&gt;This journey from atoms to bits, as described by &lt;a href="https://en.wikipedia.org/wiki/James_Gleick" target="_blank" rel="noopener noreferrer"&gt;James Gleick&lt;/a&gt;, is the story of ourselves.&lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-&lt;/div&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                </div>
-            </details>
-        </section>
-    </main>
-</div>
+  <div id="overlay" class="overlay"></div>
+  <div id="modal" class="modal" role="dialog" aria-modal="true"></div>
 
 <script>
-    document.querySelectorAll('.copy-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const pre = button.nextElementSibling;
-            if (pre && pre.tagName === 'PRE') {
-                const code = pre.querySelector('code');
-                if (code) {
-                    navigator.clipboard.writeText(code.textContent).then(() => {
-                        button.innerText = 'Copied!';
-                        setTimeout(() => { button.innerText = 'Copy Code'; }, 2000);
-                    }).catch(err => {
-                        console.error('Failed to copy text: ', err);
-                        button.innerText = 'Error';
-                    });
-                }
-            }
-        });
-    });
-</script>
+/*
+  Telegraph Runner - compact but robust platformer
+  - Prevents crashes with safe guards
+  - AudioContext is created lazily (on first user interaction)
+  - Mobile buttons emit synthetic input events
+*/
 
+// ---- Utility & audio ----
+let audioCtx = null;
+let soundEnabled = true;
+function ensureAudioUnlocked() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    audioCtx = null;
+  }
+}
+function beep(frequency = 600, duration = 0.08, type = 'sine') {
+  if (!soundEnabled) return;
+  ensureAudioUnlocked();
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = type;
+  o.frequency.value = frequency;
+  g.gain.setValueAtTime(0.0001, now);
+  g.gain.exponentialRampToValueAtTime(0.12, now + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  o.connect(g);
+  g.connect(audioCtx.destination);
+  o.start(now);
+  o.stop(now + duration + 0.02);
+}
+
+// unlock audio on first interaction
+['touchstart','mousedown','keydown'].forEach(ev=>{
+  window.addEventListener(ev, function unlock(){
+    ensureAudioUnlocked();
+    if (audioCtx && audioCtx.state === 'suspended' && audioCtx.resume) {
+      audioCtx.resume().catch(()=>{});
+    }
+    // only run once
+    ['touchstart','mousedown','keydown'].forEach(e=>window.removeEventListener(e,unlock));
+  }, {once:true});
+});
+
+// ---- Game Setup ----
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+const HUD = {
+  level: document.getElementById('hud-level'),
+  score: document.getElementById('hud-score'),
+  lives: document.getElementById('hud-lives'),
+  stations: document.getElementById('hud-stations'),
+  highscore: document.getElementById('highscoreText')
+};
+
+let W = canvas.width;
+let H = canvas.height;
+function resizeCanvas() {
+  const bounding = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  // keep internal resolution high but cap width for performance
+  const cssWidth = Math.min(window.innerWidth - 24, 1100);
+  const cssHeight = Math.max(320, Math.min(600, window.innerHeight * 0.62));
+  canvas.style.width = cssWidth + 'px';
+  canvas.style.height = cssHeight + 'px';
+  canvas.width = Math.round(cssWidth * dpr);
+  canvas.height = Math.round(cssHeight * dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  W = cssWidth;
+  H = cssHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// ---- Input ----
+const input = { left:false, right:false, up:false, shoot:false };
+const keys = {
+  ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ' ': 'up',
+  w:'up', W:'up', ArrowDown:'down',
+  z:'shoot', Z:'shoot', x:'shoot', X:'shoot'
+};
+window.addEventListener('keydown', e => {
+  const k = keys[e.key];
+  if (k) { input[k] = true; e.preventDefault(); }
+});
+window.addEventListener('keyup', e => {
+  const k = keys[e.key];
+  if (k) { input[k] = false; e.preventDefault(); }
+});
+
+// mobile buttons
+[['leftBtn','left'],['rightBtn','right'],['jumpBtn','up'],['shootBtn','shoot']].forEach(([id,action])=>{
+  const el = document.getElementById(id);
+  if (!el) return;
+  const press = (e) => { input[action] = true; e.preventDefault(); };
+  const release = (e) => { input[action] = false; e.preventDefault(); };
+  el.addEventListener('touchstart', press, {passive:false});
+  el.addEventListener('mousedown', press);
+  el.addEventListener('touchend', release);
+  el.addEventListener('mouseup', release);
+  el.addEventListener('mouseleave', release);
+  el.addEventListener('touchcancel', release);
+});
+
+// ---- Game Entities ----
+function rectsOverlap(a,b){
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+
+let game = null;
+
+function createLevel(levelNum=1){
+  // scale for screen size
+  const scale = Math.max(0.6, Math.min(1.2, W / 1000));
+  // Platforms: floor + some platforms
+  const platforms = [
+    {x:0,y:H-40,w:W,h:40},
+    {x:W*0.15,y:H-160,w:W*0.25,h:16},
+    {x:W*0.55,y:H-240,w:W*0.3,h:16},
+    {x:W*0.38,y:H-340,w:W*0.2,h:16}
+  ];
+  // player
+  const player = {
+    x:40, y:H-120, w:36*scale, h:48*scale,
+    vx:0, vy:0, speed: 260*scale, jumpPower: 520*scale,
+    onGround:false, canDoubleJump:false
+  };
+  // enemies
+  const enemies = [
+    {x:W*0.6,y:H-56,w:32,h:32,vx:-80,patrol:[W*0.45,W*0.85]},
+    {x:W*0.28,y:H-176,w:30,h:30,vx:60,patrol:[W*0.15,W*0.43]}
+  ];
+  // stations (pickups to "connect")
+  const stations = [
+    {x:W*0.2,y:H-200,w:28,h:36,connected:false},
+    {x:W*0.7,y:H-300,w:28,h:36,connected:false}
+  ];
+  // bullets
+  const bullets = [];
+  return { levelNum, scale, platforms, player, enemies, stations, bullets,
+           score:0, lives:3, time:0, stationsConnected:0, running:false, lastTime:0 };
+}
+
+// ---- Main Loop ----
+function startGame() {
+  if (game && game.running) resetGame();
+  game = createLevel(1);
+  updateHUD();
+  game.running = true;
+  game.lastTime = performance.now();
+  beep(800,0.06,'square');
+  requestAnimationFrame(loop);
+}
+
+function resetGame() {
+  if (!game) game = createLevel(1);
+  game.player.x = 40; game.player.y = H-120; game.player.vx=0; game.player.vy=0;
+  game.enemies.forEach((e,i)=>{ e.vx = e.vx>0?Math.abs(e.vx):-Math.abs(e.vx); });
+  game.bullets.length = 0;
+  game.score = 0;
+  game.lives = 3;
+  game.stations.forEach(s=>s.connected=false);
+  game.stationsConnected = 0;
+  updateHUD();
+}
+
+function endGame(win=false){
+  game.running = false;
+  showModal(win ? "Level Complete! 🎉" : "Game Over");
+  if (win) beep(1000,0.12,'sine');
+  else beep(120,0.14,'sawtooth');
+}
+
+// safe clamped physics step
+function loop(ts){
+  if (!game) return;
+  const dt = Math.min(0.035, (ts - game.lastTime) / 1000);
+  game.lastTime = ts;
+  update(dt);
+  render();
+  if (game.running) requestAnimationFrame(loop);
+}
+
+function update(dt){
+  const p = game.player;
+  // horizontal movement
+  const accel = 1200;
+  if (input.left) p.vx = -p.speed;
+  else if (input.right) p.vx = p.speed;
+  else p.vx = 0;
+
+  // jumping
+  if (input.up) {
+    if (p.onGround) {
+      p.vy = -p.jumpPower;
+      p.onGround = false;
+      p.canDoubleJump = true;
+      beep(750,0.07);
+    } else if (p.canDoubleJump) {
+      p.vy = -p.jumpPower * 0.9;
+      p.canDoubleJump = false;
+      beep(820,0.06);
+    }
+    // prevent repeated auto-jump on long press: we'll set a tiny lock until released
+    input.up = false; // makes jump require repeated taps/presses
+  }
+
+  // gravity
+  p.vy += 1400 * dt; // gravity
+  // integrate
+  p.x += p.vx * dt;
+  p.y += p.vy * dt;
+
+  // screen bounds
+  if (p.x < 0) p.x = 0;
+  if (p.x + p.w > W) p.x = W - p.w;
+
+  // platform collisions - simple resolution
+  p.onGround = false;
+  for (const plat of game.platforms) {
+    // only check when overlapping horizontally
+    if (p.x + p.w > plat.x && p.x < plat.x + plat.w) {
+      // previous position approximation:
+      const prevY = p.y - p.vy * dt;
+      // landing check
+      if (prevY + p.h <= plat.y && p.y + p.h >= plat.y) {
+        p.y = plat.y - p.h;
+        p.vy = 0;
+        p.onGround = true;
+        p.canDoubleJump = false;
+      }
+    }
+  }
+  // falling off bottom
+  if (p.y > H + 200) {
+    // lose life and reset position
+    game.lives = Math.max(0, game.lives - 1);
+    updateHUD();
+    if (game.lives <= 0) {
+      endGame(false);
+      return;
+    } else {
+      // respawn safely
+      p.x = 40; p.y = H-120; p.vy = 0; p.vx = 0;
+    }
+  }
+
+  // enemies movement & collision with player
+  for (const e of game.enemies) {
+    // patrol
+    if (e.patrol) {
+      e.x += e.vx * dt;
+      if (e.x < e.patrol[0]) { e.x = e.patrol[0]; e.vx = Math.abs(e.vx); }
+      if (e.x > e.patrol[1]) { e.x = e.patrol[1]; e.vx = -Math.abs(e.vx); }
+    }
+    // collision
+    if (rectsOverlap({x:p.x,y:p.y,w:p.w,h:p.h}, e)) {
+      // knockback and life loss, but guard to avoid repeated immediate life loss
+      if (!e._recentHit) {
+        game.lives = Math.max(0, game.lives - 1);
+        updateHUD();
+        e._recentHit = true;
+        setTimeout(()=>{ e._recentHit = false; }, 900);
+        // small knockback
+        p.vx = (p.x < e.x) ? -240 : 240;
+        p.vy = -220;
+        beep(180,0.12,'sawtooth');
+        if (game.lives <= 0) { endGame(false); return; }
+      }
+    }
+  }
+
+  // bullets update
+  for (let i = game.bullets.length - 1; i >= 0; --i) {
+    const b = game.bullets[i];
+    b.x += b.vx * dt;
+    b.life -= dt;
+    // remove if expired or offscreen
+    if (b.life <= 0 || b.x < -30 || b.x > W + 30) { game.bullets.splice(i,1); continue; }
+    // check enemy hit
+    for (let j = game.enemies.length - 1; j >= 0; --j) {
+      const en = game.enemies[j];
+      if (rectsOverlap({x:b.x,y:b.y,w:b.w,h:b.h}, en)) {
+        // destroy enemy, increase score
+        game.score += 50;
+        beep(1200,0.04,'square');
+        game.enemies.splice(j,1);
+        game.bullets.splice(i,1);
+        break;
+      }
+    }
+  }
+
+  // station collisions (connect)
+  for (const s of game.stations) {
+    if (!s.connected && rectsOverlap({x:p.x,y:p.y,w:p.w,h:p.h}, s)) {
+      s.connected = true;
+      game.stationsConnected += 1;
+      game.score += 100;
+      beep(1000,0.09,'triangle');
+      updateHUD();
+      if (game.stationsConnected >= game.stations.length) {
+        // level complete
+        endGame(true);
+        return;
+      }
+    }
+  }
+
+  // shooting (shoot only when pressed; require short cooldown)
+  if (input.shoot && !game._shootCooldown) {
+    fireBullet();
+    game._shootCooldown = 0.22; // seconds
+    input.shoot = false; // require repeated presses
+  }
+  if (game._shootCooldown) game._shootCooldown = Math.max(0, game._shootCooldown - dt);
+
+  game.time += dt;
+  // small time-based updates could go here
+}
+
+function fireBullet(){
+  const p = game.player;
+  const dir = (input.right ? 1 : input.left ? -1 : 1);
+  const b = {
+    x: p.x + p.w/2,
+    y: p.y + p.h/2 - 6,
+    w: 8, h: 6,
+    vx: dir * 640,
+    life: 1.2
+  };
+  game.bullets.push(b);
+  beep(1200,0.04,'square');
+}
+
+// ---- Rendering ----
+function render(){
+  // clear
+  ctx.clearRect(0,0,W,H);
+  // background subtle grid or vignette
+  // draw platforms
+  ctx.fillStyle = '#092b3a';
+  for (const plat of game.platforms) {
+    ctx.fillStyle = '#0f3b4d';
+    ctx.fillRect(plat.x, plat.y, plat.w, plat.h);
+    // top highlight
+    ctx.fillStyle = 'rgba(255,255,255,0.03)';
+    ctx.fillRect(plat.x, plat.y, plat.w, 3);
+  }
+  // draw stations
+  for (const s of game.stations) {
+    ctx.save();
+    ctx.translate(s.x, s.y);
+    ctx.fillStyle = s.connected ? '#34D399' : '#f2d49b';
+    ctx.fillRect(0,0,s.w,s.h);
+    ctx.fillStyle = '#0b2a3a';
+    ctx.fillRect(4,6,s.w-8,s.h-12);
+    ctx.restore();
+  }
+  // draw enemies
+  for (const e of game.enemies) {
+    ctx.fillStyle = '#f87171';
+    ctx.fillRect(e.x, e.y, e.w, e.h);
+    // eye
+    ctx.fillStyle = '#111';
+    ctx.fillRect(e.x + e.w*0.6, e.y + e.h*0.2, 4,4);
+  }
+  // draw player
+  const p = game.player;
+  ctx.fillStyle = '#67e8f9';
+  ctx.fillRect(p.x, p.y, p.w, p.h);
+  // visor
+  ctx.fillStyle = '#042c35';
+  ctx.fillRect(p.x + p.w*0.14, p.y + p.h*0.22, p.w*0.72, p.h*0.26);
+
+  // bullets
+  ctx.fillStyle = '#bfefff';
+  for (const b of game.bullets) {
+    ctx.fillRect(b.x, b.y, b.w, b.h);
+  }
+
+  // HUD overlay small
+  ctx.fillStyle = 'rgba(0,0,0,0)';
+}
+
+// ---- HUD updates ----
+function updateHUD(){
+  if (!game) return;
+  HUD.level.textContent = game.levelNum || 1;
+  HUD.score.textContent = game.score || 0;
+  HUD.lives.textContent = game.lives || 0;
+  HUD.stations.textContent = (game.stationsConnected||0) + '/' + (game.stations?game.stations.length:0);
+  // highscore in localStorage
+  const hsKey = 'telegraphRunnerHigh';
+  const prev = Number(localStorage.getItem(hsKey) || 0);
+  if (game.score > prev) {
+    localStorage.setItem(hsKey, game.score);
+    HUD.highscore.textContent = 'High Score: ' + game.score;
+  } else {
+    HUD.highscore.textContent = 'High Score: ' + prev;
+  }
+}
+
+// ---- Modal ----
+const overlay = document.getElementById('overlay');
+const modal = document.getElementById('modal');
+function showModal(text) {
+  modal.innerHTML = `<div style="font-weight:800;margin-bottom:12px">${text}</div>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button id="modalRestart" class="btn">Restart</button>
+      <button id="modalClose" class="btn">Close</button>
+    </div>`;
+  overlay.style.display = 'block';
+  modal.style.display = 'block';
+  document.getElementById('modalClose').addEventListener('click', hideModal);
+  document.getElementById('modalRestart').addEventListener('click', ()=>{
+    hideModal();
+    resetGame();
+    game.running = true;
+    game.lastTime = performance.now();
+    requestAnimationFrame(loop);
+  });
+}
+function hideModal(){
+  overlay.style.display = 'none';
+  modal.style.display = 'none';
+}
+
+// ---- Buttons ----
+document.getElementById('startBtn').addEventListener('click', () => {
+  // ensure audio unlocked
+  ensureAudioUnlocked();
+  if (!game || !game.running) startGame();
+  else { resetGame(); }
+});
+document.getElementById('muteBtn').addEventListener('click', (e)=>{
+  soundEnabled = !soundEnabled;
+  e.currentTarget.innerText = soundEnabled ? '🔊 Sound' : '🔈 Muted';
+});
+
+// small loop to render HUD frequently
+setInterval(()=>{ if (game) updateHUD(); }, 300);
+
+// ---- Prevent crashes: safe initialization ----
+(function safeInit(){
+  try {
+    if (!game) game = createLevel(1);
+    // a simple tick to keep canvas alive visually until start
+    render();
+  } catch (err) {
+    console.error('Game init error:', err);
+    // show user a friendly message in modal
+    showModal('Initialization error — please reload the page.');
+  }
+})();
+
+// ---- Keep game stable when tab hidden ----
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && game) {
+    // pause game loop but keep running=false to avoid state changes
+    game.running = false;
+  } else if (!document.hidden && game && !game.running) {
+    // resume only if we want
+    // don't auto-resume; user should press Start/Restart
+  }
+});
+
+// ---- Small accessibility: focus on canvas for keyboard ----
+canvas.setAttribute('tabindex','0');
+canvas.addEventListener('click', ()=>{ canvas.focus(); });
+
+// ---- Prevent accidental dragging on mobile controls ----
+document.addEventListener('touchmove', function(e){
+  // only prevent when single touch on control buttons
+  if (e.target && e.target.classList && e.target.classList.contains('control-btn')) e.preventDefault();
+},{passive:false});
+</script>
 </body>
 </html>
